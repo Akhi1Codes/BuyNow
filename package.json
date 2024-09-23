@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Ar-Akhil.github.io/BuyNow/",
+  "homepage": "https://ar-akhil.github.io/BuyNow/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
