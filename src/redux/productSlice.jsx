@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const baseline = "https://buynow-backend-iasj.onrender.com";
 
 const initialState = {
-  allProducts: [],
+  allProducts: null,
   product: null,
   loading: false,
   searched: false,

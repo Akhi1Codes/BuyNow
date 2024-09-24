@@ -18,10 +18,8 @@ function ProductDetails() {
   const { id } = useLoaderData();
   const { product, loading } = useSelector((state) => state.product);
   useEffect(() => {
-    if (!product) {
-      dispatch(getProduct(id));
-    }
-  }, [product]);
+    dispatch(getProduct(id));
+  });
   const productdetails = product?.product;
   const rating = Math.floor(productdetails?.ratings);
   const stock = Number(productdetails?.stock);
