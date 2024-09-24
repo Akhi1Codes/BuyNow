@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Cards = ({ name, price, id, image, seller }) => {
-  const randomNumber = Math.round(Math.random() * 70) + 1;
+  const randomNumber = Math.round((Math.random() + Number.EPSILON) * 70) + 1;
   return (
     <div>
       <div className="w-[170px] bg-[#0d0e14] shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -25,7 +25,7 @@ const Cards = ({ name, price, id, image, seller }) => {
               </p>
               <del>
                 <p className="text-sm text-gray-600 cursor-auto ml-2">
-                  ${price + randomNumber}
+                  ${price + randomNumber.toFixed(2)}
                 </p>
               </del>
             </div>

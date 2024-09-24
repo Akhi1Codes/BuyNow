@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { userProfile, updateProfile } from "../redux/authSlice";
+import MetaData from "../utils/MetaData";
 
 const Profile = () => {
   const dispatch = useDispatch();
