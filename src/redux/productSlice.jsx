@@ -5,7 +5,7 @@ const baseline = "https://buynow-backend-iasj.onrender.com";
 
 const initialState = {
   allProducts: [],
-  product: [],
+  product: null,
   loading: false,
   searched: false,
 };
