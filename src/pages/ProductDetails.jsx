@@ -19,7 +19,7 @@ function ProductDetails() {
   const { product, loading } = useSelector((state) => state.product);
   useEffect(() => {
     dispatch(getProduct(id));
-  });
+  }, []);
   const productdetails = product?.product;
   const rating = Math.floor(productdetails?.ratings);
   const stock = Number(productdetails?.stock);
