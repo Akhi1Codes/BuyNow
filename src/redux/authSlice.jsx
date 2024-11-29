@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const baseline = "http://localhost:4000";
-// const baseline = "https://buynow-backend-iasj.onrender.com";
+// const baseline = "http://localhost:4000";
+const baseline = "https://buynow-backend-iasj.onrender.com";
 
 const initialState = {
   data: [],
