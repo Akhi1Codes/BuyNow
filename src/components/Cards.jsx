@@ -7,7 +7,7 @@ const Cards = ({ name, price, id, image, seller }) => {
   return (
     <IconContext.Provider value={{ color: "white", size: "1.2em " }}>
       <div>
-        <div className="w-[200px] bg-[#0d0e14] shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        <div className="w-[170px] md:w-[200px] bg-[#0d0e14] shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
           <Link to={`product/${id}`}>
             <img
               src={image[0].url}
