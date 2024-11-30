@@ -14,21 +14,21 @@ const Cards = ({ name, price, id, image, seller }) => {
               alt="Product"
               className="h-36 w-72 object-cover rounded-t-xl"
             />
-            <div className="px-4 py-3 ">
-              <p className="text-gray-400 mr-3 uppercase text-xs truncate">
-                {seller}
-              </p>
-              <p className="text-lg font-bold text-white truncate block capitalize">
-                {name}
-              </p>
-              <div className="flex justify-between items-center">
-                <p className="text-lg font-semibold text-white cursor-auto my-3">
-                  ${price}
-                </p>
-                <MdAddShoppingCart />
-              </div>
-            </div>
           </Link>
+          <div className="px-4 py-3 ">
+            <p className="text-gray-400 mr-3 uppercase text-xs truncate">
+              {seller}
+            </p>
+            <p className="text-lg font-bold text-white truncate block capitalize">
+              {name}
+            </p>
+            <div className="flex justify-between items-center">
+              <p className="text-lg font-semibold text-white cursor-auto my-3">
+                ${price}
+              </p>
+              <MdAddShoppingCart />
+            </div>
+          </div>
         </div>
       </div>
     </IconContext.Provider>
