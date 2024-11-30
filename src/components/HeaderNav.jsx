@@ -1,4 +1,5 @@
 import { filterProducts, getAllProducts } from "../redux/productSlice";
+import { useDispatch } from "react-redux";
 import { CgComponents, CgGames } from "react-icons/cg";
 import {
   MdElectricalServices,
@@ -14,6 +15,7 @@ import { RiBrushFill } from "react-icons/ri";
 import { IconContext } from "react-icons/lib";
 
 const HeaderNav = () => {
+  const dispatch = useDispatch();
   return (
     <IconContext.Provider value={{ color: "white", size: "2.5em " }}>
       <div className="lg:flex lg:justify-center scroll p-2 flex gap-6 whitespace-nowrap overflow-x-scroll font-light text-sm">
