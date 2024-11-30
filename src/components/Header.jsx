@@ -60,7 +60,10 @@ const Header = () => {
                       0
                     </p>
                   </div>
-                  <div className="md:hidden" onClick={handleopenSearch}>
+                  <div
+                    className="md:hidden cursor-pointer"
+                    onClick={handleopenSearch}
+                  >
                     <MdOutlineSearch />
                   </div>
                 </div>
@@ -108,6 +111,13 @@ const Header = () => {
                     Orders
                   </li>
                 </Link>
+                {data.user.role == "admin" && (
+                  <Link to="adminportal" onClick={() => setToggle(!toggle)}>
+                    <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
+                      Admin Portal
+                    </li>
+                  </Link>
+                )}
                 <li className="p-4 px-8 " onClick={() => logOut()}>
                   Logout
                 </li>
