@@ -69,7 +69,8 @@ const Login = () => {
                 <input
                   name="email"
                   type="email"
-                  required=""
+                  autoComplete="email"
+                  required
                   className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                   placeholder="Email Address"
                   value={email}
@@ -81,7 +82,8 @@ const Login = () => {
                 <input
                   name="password"
                   type="password"
-                  required=""
+                  autoComplete="password"
+                  required
                   className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                   placeholder="Password"
                   value={password}
