@@ -1,21 +1,13 @@
-import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { userProfile, updateProfile } from "../redux/authSlice";
 import MetaData from "../utils/MetaData";
 
 const Profile = () => {
-  const dispatch = useDispatch();
   const refs = [useRef(null), useRef(null)];
   const [editName, seteditName] = useState();
   const [editEmail, seteditEmail] = useState();
-  const { profile } = useSelector((state) => state.auth);
   const name = profile?.user?.name;
   const email = profile?.user?.email;
   const image = profile?.user?.avatar?.url;
-
-  useEffect(() => {
-    dispatch(userProfile());
-  }, []);
 
   useEffect(() => {
     seteditName(name);
@@ -29,7 +21,6 @@ const Profile = () => {
   };
 
   const handleSave = (name, email) => {
-    dispatch(updateProfile({ name, email }));
     refs.forEach((ref) => {
       ref.current.setAttribute("readOnly", true);
       ref.current.style.backgroundColor = "inherit";

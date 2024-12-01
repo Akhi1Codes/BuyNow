@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { setCredentials } from "../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
+import { useUserLoginMutation } from "../redux/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import MetaData from "../utils/MetaData";
-import { userLogin } from "../redux/authSlice";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   let navigate = useNavigate();
+  const [login, { isLoading, error }] = useUserLoginMutation();
 
-  const { isAuthenticated, loading, data } = useSelector((state) => state.auth);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(userLogin({ email, password }));
-  };
-  useEffect(() => {
-    if (isAuthenticated && data?.success) {
+    try {
+      const response = await login({ email, password }).unwrap();
+      dispatch(setCredentials(response));
       navigate("/");
+    } catch (err) {
+      console.error("Login failed:", err);
     }
-  }, [handleSubmit]);
+  };
 
   return (
     <div>
@@ -89,8 +90,8 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {!isAuthenticated || !data?.success ? (
-                  <p className="text-red-600 text-sm">{data?.error}</p>
+                {error ? (
+                  <p className="text-red-600 text-sm">{error.data.error}</p>
                 ) : (
                   ""
                 )}
@@ -105,7 +106,7 @@ const Login = () => {
                 <button
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
-                  disabled={loading}
+                  disabled={isLoading}
                 >
                   Login
                 </button>

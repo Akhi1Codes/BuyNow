@@ -1,35 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderNav from "./HeaderNav";
-import { useSelector, useDispatch } from "react-redux";
-import { userLogout } from "../redux/authSlice";
-import { searchProducts } from "../redux/productSlice";
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { MdShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { IconContext } from "react-icons/lib";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearched } from "../redux/slices/searchSlice";
+import { logout } from "../redux/slices/authSlice";
 
 const Header = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.authSlice);
   const searchRef = useRef(null);
-  const { isAuthenticated, data } = useSelector((state) => state.auth);
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState("");
-
-  const handleSearch = () => {
-    dispatch(searchProducts(keyword));
-  };
 
   const handleopenSearch = () => {
     const searchBar = searchRef.current;
     searchBar.classList.toggle("hidden");
   };
 
-  const logOut = () => {
-    dispatch(userLogout());
-    navigate("/");
-  };
+  function handleSearch() {
+    dispatch(setSearched(keyword));
+  }
 
   return (
     <IconContext.Provider value={{ color: "white", size: "1.5em " }}>
@@ -51,7 +44,7 @@ const Header = () => {
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
                   ></input>
-                  <button onClick={handleSearch}>Search</button>
+                  <button onClick={() => handleSearch()}>Search</button>
                 </div>
                 <div className="flex gap-2 items-center ">
                   <div className="flex items-center">
@@ -68,16 +61,16 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="px-2 flex justify-center items-center ">
-                  {isAuthenticated && data?.success ? (
+                  {userData.isAuthenticated ? (
                     <img
                       width={35}
                       className="rounded-full h-[35px]"
-                      src={data?.user.avatar.url}
-                      alt={data?.user.name}
+                      src={userData?.user.avatar.url}
+                      alt={userData?.user.name}
                       onClick={() => setToggle(!toggle)}
                     />
                   ) : (
-                    <Link to="/login">
+                    <Link to={"/login"}>
                       <button className="text-white">Login</button>
                     </Link>
                   )}
@@ -93,13 +86,13 @@ const Header = () => {
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                 ></input>
-                <button onClick={handleSearch}>Search</button>
+                <button onClick={() => handleSearch()}>Search</button>
               </div>
             </div>
           </nav>
           <div>
-            {isAuthenticated && data && toggle ? (
-              <ul className="bg-[#0d0e14] w-fit p-4 absolute right-0 top-12 cursor-pointer z-50">
+            {userData.isAuthenticated && toggle ? (
+              <ul className="bg-[#0d0e14] w-fit p-4  absolute right-0 top-12 cursor-pointer z-50">
                 {/* set !toggle to close the menu on selecting an item(auto close) */}
                 <Link to="me" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
@@ -111,14 +104,14 @@ const Header = () => {
                     Orders
                   </li>
                 </Link>
-                {data.user.role == "admin" && (
-                  <Link to="adminportal" onClick={() => setToggle(!toggle)}>
-                    <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
-                      Admin Portal
-                    </li>
-                  </Link>
-                )}
-                <li className="p-4 px-8 " onClick={() => logOut()}>
+                {/* {data.user.role == "admin" && (
+                <Link to="adminportal" onClick={() => setToggle(!toggle)}>
+                  <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
+                    Admin Portal
+                  </li>
+                </Link>
+              )} */}
+                <li className="p-4 px-8 " onClick={() => dispatch(logout())}>
                   Logout
                 </li>
               </ul>

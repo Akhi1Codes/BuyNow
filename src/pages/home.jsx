@@ -1,18 +1,14 @@
 import MetaData from "../utils/MetaData";
 import Loader from "../components/Loader";
 import Cards from "../components/Cards";
-import { getAllProducts, priceFilter } from "../redux/productSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useGetAllProductQuery } from "../redux/api/productApi";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
-
-  const { allProducts, loading } = useSelector((state) => state.product);
-  let products = allProducts?.products;
+  const category = useSelector((state) => state.category.selectedCategory);
+  const keyword = useSelector((state) => state.search.searched);
+  const { data, loading } = useGetAllProductQuery({ category, keyword });
+  let products = data?.products;
   return (
     <div>
       <MetaData title={"Best Products"} content={"best products ever"} />

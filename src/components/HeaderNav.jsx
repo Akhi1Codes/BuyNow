@@ -1,5 +1,3 @@
-import { filterProducts, getAllProducts } from "../redux/productSlice";
-import { useDispatch } from "react-redux";
 import { CgComponents, CgGames } from "react-icons/cg";
 import {
   MdElectricalServices,
@@ -13,92 +11,99 @@ import { GiClothes, GiAutoRepair } from "react-icons/gi";
 import { FaKitchenSet } from "react-icons/fa6";
 import { RiBrushFill } from "react-icons/ri";
 import { IconContext } from "react-icons/lib";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../redux/slices/categorySlice";
+import { clearSearched } from "../redux/slices/searchSlice";
 
 const HeaderNav = () => {
   const dispatch = useDispatch();
+  function handleClick(category) {
+    dispatch(setCategory(category));
+    dispatch(clearSearched());
+  }
   return (
     <IconContext.Provider value={{ color: "white", size: "2.5em " }}>
       <div className="lg:flex lg:justify-center scroll p-2 flex gap-6 whitespace-nowrap overflow-x-scroll font-light text-sm">
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(getAllProducts())}
+          onClick={() => handleClick()}
         >
           <CgComponents />
           <p>All Products</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("Electronics"))}
+          onClick={() => handleClick("Electronics")}
         >
           <MdElectricalServices />
           <p>Electronics</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("Food"))}
+          onClick={() => handleClick("Food")}
         >
           <MdOutlineFastfood />
           <p>Food</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("ClothingandAccessories"))}
+          onClick={() => handleClick("Clothing")}
         >
           <GiClothes />
           <p>Clothing</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("HomeandKitchen"))}
+          onClick={() => handleClick("Kitchen")}
         >
           <FaKitchenSet />
           <p>Kitchen</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("BeautyandPersonal Care"))}
+          onClick={() => handleClick("Beauty")}
         >
           <RiBrushFill />
           <p>Beauty Care</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("SportsandOutdoors"))}
+          onClick={() => handleClick("Sports")}
         >
           <MdOutlineSports />
           <p>Sports</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("ToysandGames"))}
+          onClick={() => handleClick("ToysandGames")}
         >
           <CgGames />
           <p>Toys & Games</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("Books"))}
+          onClick={() => handleClick("Books")}
         >
           <ImBooks />
           <p>Books</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("Automotive"))}
+          onClick={() => handleClick("Automotive")}
         >
           <GiAutoRepair />
           <p>Automotive</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("HealthandWellness"))}
+          onClick={() => handleClick("Fitness")}
         >
           <MdFitnessCenter />
           <p>Fitness</p>
         </div>
         <div
           className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => dispatch(filterProducts("Office Supplies"))}
+          onClick={() => handleClick("OfficeSupplies")}
         >
           <MdBusinessCenter />
           <p>Office Supplies</p>

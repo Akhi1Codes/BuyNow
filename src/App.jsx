@@ -6,8 +6,9 @@ import ProductDetails, {
 import Root from "./pages/root";
 import Login from "./pages/Login";
 import Register from "./pages/register";
-import PasswordReset from "./pages/passwordreset";
-import Profile from "./pages/profile";
+// import PasswordReset from "./pages/passwordreset";
+// import Profile from "./pages/profile";
+// import AdminPortal from "./pages/adminPortal";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +24,10 @@ const router = createBrowserRouter([
         element: <ProductDetails />,
         loader: productLoader,
       },
-      {
-        path: "/me",
-        element: <Profile />,
-      },
+      // {
+      //   path: "/me",
+      //   element: <Profile />,
+      // },
     ],
   },
   {
@@ -37,10 +38,14 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
-  {
-    path: "/forgot-password",
-    element: <PasswordReset />,
-  },
+  // {
+  //   path: "/forgot-password",
+  //   element: <PasswordReset />,
+  // },
+  // {
+  //   path: "/adminportal",
+  //   element: <AdminPortal />,
+  // },
 ]);
 
 function App() {

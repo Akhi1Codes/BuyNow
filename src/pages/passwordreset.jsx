@@ -1,22 +1,12 @@
 import { useState, useEffect } from "react";
 import MetaData from "../utils/MetaData";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword } from "../redux/authSlice";
 
 const PasswordReset = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-
-  const { message, sent } = useSelector((state) => state.auth);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      forgotPassword({
-        email: email,
-      })
-    );
   };
   return (
     <div>

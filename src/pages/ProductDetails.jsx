@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MetaData from "../utils/MetaData";
 import Loader from "../components/Loader";
 import star from "../assets/star.png";
 import Reviews from "../components/Reviews";
 import { useLoaderData, ScrollRestoration } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getProduct } from "../redux/productSlice";
+import { useGetProductQuery } from "../redux/api/productApi";
 
 export async function loader({ params }) {
   const id = params.id;
@@ -14,13 +13,9 @@ export async function loader({ params }) {
 
 function ProductDetails() {
   const [instock, setInstock] = useState(false);
-  const dispatch = useDispatch();
   const { id } = useLoaderData();
-  const { product, loading } = useSelector((state) => state.product);
-  useEffect(() => {
-    dispatch(getProduct(id));
-  }, []);
-  const productdetails = product?.product;
+  const { data, loading } = useGetProductQuery(id);
+  const productdetails = data?.product;
   const rating = Math.floor(productdetails?.ratings);
   const stock = Number(productdetails?.stock);
   if (stock <= 0) {

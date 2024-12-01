@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import MetaData from "../utils/MetaData";
 import { Link, useNavigate } from "react-router-dom";
-import { userRegister } from "../redux/authSlice";
+import { useUserRegisterMutation } from "../redux/api/authApi";
 import image from "../assets/defaultimage.png";
 
 const Register = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
@@ -16,25 +14,24 @@ const Register = () => {
   const { username, email, password } = user;
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(image);
-  const submitHandler = (e) => {
+
+  const [register, { isLoading, error }] = useUserRegisterMutation();
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(
-      userRegister({
-        name: username,
-        email: email,
-        password: password,
-        avatar: avatar,
-      })
-    );
-  };
-  const { registered, error, registerLoading } = useSelector(
-    (state) => state.auth
-  );
-  useEffect(() => {
-    if (registered) {
-      navigate("/login");
+    try {
+      const response = await register({
+        username,
+        email,
+        password,
+        avatar,
+      }).unwrap();
+      console.log(response);
+    } catch (err) {
+      console.error("Login failed:", err);
     }
-  }, [submitHandler]);
+  };
+
   const onChange = (e) => {
     if (e.target.name === "avatar") {
       const reader = new FileReader();
@@ -170,9 +167,7 @@ const Register = () => {
                 </div>
               </div>
               {error ? (
-                <p className="text-red-600 text-sm">
-                  {error} Please check the image size.
-                </p>
+                <p className="text-red-600 text-sm">{error.data.error}</p>
               ) : (
                 ""
               )}
@@ -180,7 +175,7 @@ const Register = () => {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-                  disabled={registerLoading}
+                  disabled={isLoading}
                 >
                   Register Account
                 </button>
