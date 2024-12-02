@@ -18,13 +18,42 @@ export const authApi = createApi({
     }),
     userRegister: builder.mutation({
       query: (userData) => ({
-        url: "/register",
+        url: "/api/v1/register",
         method: "POST",
         body: userData,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    passwordForgot: builder.mutation({
+      query: (email) => ({
+        url: "/api/v1/password/forgot",
+        method: "POST",
+        body: email,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    getUser: builder.query({
+      query: () => ({
+        url: "/api/v1/me",
+        credentials: "include",
+      }),
+    }),
+    updateUser: builder.mutation({
+      query: (userData) => ({
+        url: "/api/v1/me/update",
+        method: "PUT",
+        body: userData,
+        credentials: "include",
       }),
       invalidatesTags: ["User"],
     }),
   }),
 });
 
-export const { useUserLoginMutation, useUserRegisterMutation } = authApi;
+export const {
+  useUserLoginMutation,
+  useUserRegisterMutation,
+  usePasswordForgotMutation,
+  useGetUserQuery,
+  useUpdateUserMutation,
+} = authApi;

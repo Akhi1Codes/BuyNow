@@ -22,7 +22,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["category", "search", "authApi.reducerPath.userRegister"],
+  blacklist: ["category", "search"],
 };
 
 const rootReducer = combineReducers({

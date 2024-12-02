@@ -64,7 +64,7 @@ const Header = () => {
                   {userData.isAuthenticated ? (
                     <img
                       width={35}
-                      className="rounded-full h-[35px]"
+                      className="rounded-full h-[35px] cursor-pointer"
                       src={userData?.user.avatar.url}
                       alt={userData?.user.name}
                       onClick={() => setToggle(!toggle)}
@@ -104,13 +104,13 @@ const Header = () => {
                     Orders
                   </li>
                 </Link>
-                {/* {data.user.role == "admin" && (
-                <Link to="adminportal" onClick={() => setToggle(!toggle)}>
-                  <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
-                    Admin Portal
-                  </li>
-                </Link>
-              )} */}
+                {userData.user.role == "admin" && (
+                  <Link to="adminportal" onClick={() => setToggle(!toggle)}>
+                    <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
+                      Admin Portal
+                    </li>
+                  </Link>
+                )}
                 <li className="p-4 px-8 " onClick={() => dispatch(logout())}>
                   Logout
                 </li>

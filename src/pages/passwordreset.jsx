@@ -1,12 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MetaData from "../utils/MetaData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { usePasswordForgotMutation } from "../redux/api/authApi";
 
 const PasswordReset = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [userEmail, { data, isLoading, error }] = usePasswordForgotMutation();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    try {
+      const response = await userEmail({
+        email,
+      }).unwrap();
+      setTimeout(() => navigate("/login"), 5000);
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
   return (
     <div>
@@ -61,14 +72,19 @@ const PasswordReset = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <p className="text-xs text-green-600 py-1 font-semibold">
-                  {message.message}
+                <p className="text-xs text-green-600 font-semibold">
+                  {data?.message}
                 </p>
+                {error && (
+                  <p className="text-xs text-red-600 font-semibold">
+                    {error?.data?.error}
+                  </p>
+                )}
 
                 <button
                   type="submit"
                   className="my-4  rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
-                  disabled={sent}
+                  disabled={isLoading}
                 >
                   Verify --&gt;
                 </button>
