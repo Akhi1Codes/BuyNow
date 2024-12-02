@@ -21,12 +21,12 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await register({
-        username,
+        name: username,
         email,
         password,
         avatar,
       }).unwrap();
-      console.log(response);
+      navigate("/login");
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -93,6 +93,7 @@ const Register = () => {
                     value={username}
                     onChange={onChange}
                     type="username"
+                    autoComplete="name"
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -112,6 +113,7 @@ const Register = () => {
                     type="email-address"
                     value={email}
                     onChange={onChange}
+                    autoComplete="email"
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -131,6 +133,7 @@ const Register = () => {
                     type="password"
                     value={password}
                     onChange={onChange}
+                    autoComplete="new-password"
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -162,12 +165,13 @@ const Register = () => {
                       id="customFile"
                       accept="images/*"
                       onChange={onChange}
+                      required
                     />
                   </div>
                 </div>
               </div>
               {error ? (
-                <p className="text-red-600 text-sm">{error.data.error}</p>
+                <p className="text-red-600 text-sm">Please choose an image</p>
               ) : (
                 ""
               )}
