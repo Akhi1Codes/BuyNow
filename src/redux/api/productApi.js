@@ -4,7 +4,7 @@ export const productApi = createApi({
   reducerPath: "products",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://localhost:4000",
-    baseUrl: "https://buynow-66f3.onrender.com",
+    baseUrl: "https://buynow-backend-iasj.onrender.com",
   }),
   endpoints: (builder) => ({
     getAllProduct: builder.query({

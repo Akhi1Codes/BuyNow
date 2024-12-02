@@ -4,7 +4,7 @@ export const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://localhost:4000",
-    baseUrl: "https://buynow-66f3.onrender.com",
+    baseUrl: "https://buynow-backend-iasj.onrender.com",
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
