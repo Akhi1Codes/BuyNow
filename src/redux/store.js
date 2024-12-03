@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage/session";
 import { combineReducers } from "redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { productApi } from "./api/productApi";
