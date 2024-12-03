@@ -14,7 +14,6 @@ export const authApi = createApi({
         method: "POST",
         body: credentials,
       }),
-      invalidatesTags: ["User"],
     }),
     userRegister: builder.mutation({
       query: (userData) => ({
@@ -22,7 +21,6 @@ export const authApi = createApi({
         method: "POST",
         body: userData,
       }),
-      invalidatesTags: ["User"],
     }),
     passwordForgot: builder.mutation({
       query: (email) => ({
@@ -30,7 +28,6 @@ export const authApi = createApi({
         method: "POST",
         body: email,
       }),
-      invalidatesTags: ["User"],
     }),
     getUser: builder.query({
       query: () => ({
