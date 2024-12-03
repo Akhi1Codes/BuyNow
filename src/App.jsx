@@ -2,13 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import ProductDetails, {
   loader as productLoader,
-} from "./pages/ProductDetails";
+} from "./pages/product/ProductDetails";
 import Root from "./pages/root";
-import Login from "./pages/Login";
-import Register from "./pages/register";
-import PasswordReset from "./pages/passwordreset";
-import Profile from "./pages/profile";
-// import AdminPortal from "./pages/adminPortal";
+import Login from "./pages/user/Login";
+import Register from "./pages/user/register";
+import PasswordReset from "./pages/user/passwordreset";
+import Profile from "./pages/user/profile";
+// import AdminPortal from "./pages/admin/adminPortal";
 
 const router = createBrowserRouter([
   {

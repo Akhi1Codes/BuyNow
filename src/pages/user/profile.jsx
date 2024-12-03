@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import MetaData from "../utils/MetaData";
+import MetaData from "../../utils/MetaData";
 import {
   useGetUserQuery,
   useUpdateUserMutation,
   useUpdateUserPasswordMutation,
-} from "../redux/api/authApi";
+} from "../../redux/api/authApi";
 
 const Profile = () => {
   const [status, setStatus] = useState("");

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import MetaData from "../utils/MetaData";
-import Loader from "../components/Loader";
-import star from "../assets/star.png";
-import Reviews from "../components/Reviews";
+import MetaData from "../../utils/MetaData";
+import Loader from "../../components/Loader";
+import star from "../../assets/star.png";
+import Reviews from "../../components/products/Reviews";
 import { useLoaderData, ScrollRestoration } from "react-router-dom";
-import { useGetProductQuery } from "../redux/api/productApi";
+import { useGetProductQuery } from "../../redux/api/productApi";
 
 export async function loader({ params }) {
   const id = params.id;

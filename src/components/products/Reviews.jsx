@@ -1,5 +1,5 @@
 import React from "react";
-import star from "../assets/star.png";
+import star from "../../assets/star.png";
 
 const Reviews = (reviews) => {
   let datas = reviews?.reviews;

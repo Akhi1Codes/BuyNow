@@ -1,6 +1,6 @@
 import MetaData from "../utils/MetaData";
 import Loader from "../components/Loader";
-import Cards from "../components/Cards";
+import Cards from "../components/products/Cards";
 import { useSelector } from "react-redux";
 import { useGetAllProductQuery } from "../redux/api/productApi";
 

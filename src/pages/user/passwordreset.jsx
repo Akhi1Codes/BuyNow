@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MetaData from "../utils/MetaData";
+import MetaData from "../../utils/MetaData";
 import { Link, useNavigate } from "react-router-dom";
-import { usePasswordForgotMutation } from "../redux/api/authApi";
+import { usePasswordForgotMutation } from "../../redux/api/authApi";
 
 const PasswordReset = () => {
   const navigate = useNavigate();
