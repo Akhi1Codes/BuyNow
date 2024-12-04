@@ -5,12 +5,14 @@ import { MdShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { IconContext } from "react-icons/lib";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearched } from "../redux/slices/searchSlice";
+import { useLogoutUserMutation } from "../redux/api/authApi";
 import { logout } from "../redux/slices/authSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.authSlice);
+  const [logoutQuery] = useLogoutUserMutation();
   const searchRef = useRef(null);
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState("");
@@ -23,6 +25,16 @@ const Header = () => {
   function handleSearch() {
     dispatch(setSearched(keyword));
   }
+
+  const handleLogout = async () => {
+    try {
+      dispatch(logout());
+      await logoutQuery().unwrap();
+      navigate("/");
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
 
   return (
     <IconContext.Provider value={{ color: "white", size: "1.5em " }}>
@@ -111,7 +123,7 @@ const Header = () => {
                     </li>
                   </Link>
                 )}
-                <li className="p-4 px-8 " onClick={() => dispatch(logout())}>
+                <li className="p-4 px-8 " onClick={() => handleLogout()}>
                   Logout
                 </li>
               </ul>
