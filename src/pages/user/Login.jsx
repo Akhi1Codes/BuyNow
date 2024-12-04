@@ -91,7 +91,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {error ? (
-                  <p className="text-red-600 text-sm">{error.data.error}</p>
+                  <p className="text-red-600 text-sm">{error.data?.error}</p>
                 ) : (
                   ""
                 )}

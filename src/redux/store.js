@@ -22,7 +22,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["category", "search"],
+  blacklist: ["category", "search", "authSlice"],
 };
 
 const rootReducer = combineReducers({

@@ -13,6 +13,7 @@ export const authApi = createApi({
         url: "/api/v1/login",
         method: "POST",
         body: credentials,
+        credentials: "include",
       }),
     }),
     userRegister: builder.mutation({
@@ -20,6 +21,7 @@ export const authApi = createApi({
         url: "/api/v1/register",
         method: "POST",
         body: userData,
+        credentials: "include",
       }),
     }),
     passwordForgot: builder.mutation({
@@ -32,7 +34,6 @@ export const authApi = createApi({
     getUser: builder.query({
       query: () => ({
         url: "/api/v1/me",
-        credentials: "include",
       }),
     }),
     updateUser: builder.mutation({

@@ -101,7 +101,7 @@ const Header = () => {
                 </Link>
                 <Link to="orders" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
-                    Orders
+                    Cart
                   </li>
                 </Link>
                 {userData.user.role == "admin" && (
