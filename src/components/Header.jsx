@@ -60,12 +60,14 @@ const Header = () => {
                   <button onClick={() => handleSearch()}>Search</button>
                 </div>
                 <div className="flex gap-2 items-center ">
-                  <div className="flex items-center">
-                    <MdShoppingCart />
-                    <p className="bg-[#f2cc8f] px-2 rounded-sm text-black flex font-semibold">
-                      {data.NoOfProducts}
-                    </p>
-                  </div>
+                  <Link to={"/cart"}>
+                    <div className="flex items-center">
+                      <MdShoppingCart />
+                      <p className="bg-[#f2cc8f] px-2 rounded-sm text-black flex font-semibold">
+                        {data.NoOfProducts}
+                      </p>
+                    </div>
+                  </Link>
                   <div
                     className="md:hidden cursor-pointer"
                     onClick={handleopenSearch}
@@ -112,9 +114,9 @@ const Header = () => {
                     Profile
                   </li>
                 </Link>
-                <Link to="orders" onClick={() => setToggle(!toggle)}>
+                <Link to="cart" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
-                    Cart
+                    My Cart
                   </li>
                 </Link>
                 {userData.user.role == "admin" && (

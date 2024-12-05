@@ -11,12 +11,9 @@ const cartSlice = createSlice({
       const existingProduct = state.cart.find(
         (item) => item._id === action.payload._id
       );
-
       if (!existingProduct) {
         state.cart.push(action.payload);
         state.NoOfProducts = state.cart.length;
-      } else {
-        console.log("Product already exists in the cart:", action.payload._id);
       }
     },
     removeFromCart: (state, action) => {
