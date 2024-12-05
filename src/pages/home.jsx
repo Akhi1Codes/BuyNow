@@ -7,12 +7,12 @@ import { useGetAllProductQuery } from "../redux/api/productApi";
 const Home = () => {
   const category = useSelector((state) => state.category.selectedCategory);
   const keyword = useSelector((state) => state.search.searched);
-  const { data, loading } = useGetAllProductQuery({ category, keyword });
+  const { data, isLoading } = useGetAllProductQuery({ category, keyword });
   let products = data?.products;
   return (
     <div>
       <MetaData title={"Best Products"} content={"best products ever"} />
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div>
@@ -25,6 +25,7 @@ const Home = () => {
                 id={product?._id}
                 image={product?.images}
                 seller={product?.seller}
+                product={product}
               />
             ))}
           </section>

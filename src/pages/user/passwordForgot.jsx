@@ -1,28 +1,18 @@
 import { useState } from "react";
 import MetaData from "../../utils/MetaData";
 import { Link, useNavigate } from "react-router-dom";
-import { useResetPasswordMutation } from "../../redux/api/authApi";
-import { useLoaderData } from "react-router-dom";
+import { usePasswordForgotMutation } from "../../redux/api/authApi";
 
-export async function loader({ params }) {
-  const token = params.token;
-  return { token };
-}
-
-const PasswordReset = () => {
+const PasswordForgot = () => {
   const navigate = useNavigate();
-  const { token } = useLoaderData();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [userData, { data, isLoading, error }] = useResetPasswordMutation();
+  const [email, setEmail] = useState("");
+  const [userEmail, { data, isLoading, error }] = usePasswordForgotMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await userData({
-        token,
-        password: password,
-        confirmPassword: confirmPassword,
+      const response = await userEmail({
+        email,
       }).unwrap();
       console.log(response);
       setTimeout(() => navigate("/login"), 5000);
@@ -32,9 +22,9 @@ const PasswordReset = () => {
   };
   return (
     <div>
-      <MetaData title="Password Reset Page" content="Password Reset" />
+      <MetaData title="Password Forgot Page" content="Password Forgot" />
       <div
-        id="passwordReset-popup"
+        id="passwordForgot-popup"
         className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex"
       >
         <div className="relative p-4 w-full max-w-md md:h-auto">
@@ -65,37 +55,25 @@ const PasswordReset = () => {
                 <p className="mb-3 text-2xl font-semibold leading-5 text-white">
                   Reset Password
                 </p>
+                <p className="mt-2 text-sm leading-4 text-white">
+                  Confirm your email id
+                </p>
               </div>
 
               <form className="w-full py-6" onSubmit={submitHandler}>
-                <label htmlFor="password" className="sr-only">
-                  Enter new password
+                <label htmlFor="email" className="sr-only">
+                  Email address
                 </label>
                 <input
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
+                  name="email"
+                  type="email"
                   required=""
-                  className="block w-full my-4  rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-                  placeholder="Enter new password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-
-                <label htmlFor="confirm-password" className="sr-only">
-                  Enter new password
-                </label>
-                <input
-                  name="confirm-password"
-                  type="password"
-                  required=""
-                  className="block w-full my-4 rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-                  placeholder="Confirm new password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-
-                {/* <p className="text-xs text-green-600 font-semibold">
+                <p className="text-xs text-green-600 font-semibold">
                   {data?.message}
                 </p>
                 {error && (
@@ -103,12 +81,11 @@ const PasswordReset = () => {
                     {error?.data?.error}
                   </p>
                 )}
-                  */}
 
                 <button
                   type="submit"
-                  className="my-2  rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
-                  // disabled={isLoading}
+                  className="my-4  rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
+                  disabled={isLoading}
                 >
                   Verify --&gt;
                 </button>
@@ -121,4 +98,4 @@ const PasswordReset = () => {
   );
 };
 
-export default PasswordReset;
+export default PasswordForgot;

@@ -14,7 +14,7 @@ export async function loader({ params }) {
 function ProductDetails() {
   const [instock, setInstock] = useState(false);
   const { id } = useLoaderData();
-  const { data, loading } = useGetProductQuery(id);
+  const { data, isLoading } = useGetProductQuery(id);
   const productdetails = data?.product;
   const rating = Math.floor(productdetails?.ratings);
   const stock = Number(productdetails?.stock);
@@ -27,7 +27,7 @@ function ProductDetails() {
         title={`${productdetails?.name}`}
         content={`${productdetails?.description}`}
       />
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="bg-gray-100 dark:bg-[#1a1b25] py-8 ">

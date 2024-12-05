@@ -9,7 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
+import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session";
 import { combineReducers } from "redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { productApi } from "./api/productApi";
@@ -17,13 +18,21 @@ import { authApi } from "./api/authApi";
 import categoryReducer from "./slices/categorySlice";
 import searchReducer from "./slices/searchSlice";
 import authReducer from "./slices/authSlice";
+import cartReducer from "./slices/cartSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
-  blacklist: ["category", "search", "authSlice"],
+  storage: sessionStorage,
+  blacklist: ["category", "search", "authSlice", "cartSlice"],
 };
+
+const cartPersistConfig = {
+  key: "cart",
+  storage: storage,
+};
+
+const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
 
 const rootReducer = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
@@ -31,6 +40,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   search: searchReducer,
   authSlice: authReducer,
+  cartSlice: persistedCartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdAddShoppingCart } from "react-icons/md";
+import { MdAddShoppingCart, MdCheck } from "react-icons/md";
 import { IconContext } from "react-icons/lib";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/slices/cartSlice";
 
-const Cards = ({ name, price, id, image, seller }) => {
+const Cards = ({ name, price, id, image, seller, product }) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cartSlice.cart);
+
+  const isProductInCart = cart.some((item) => item._id === product._id);
   return (
     <IconContext.Provider value={{ color: "white", size: "1.2em " }}>
       <div>
@@ -26,7 +32,18 @@ const Cards = ({ name, price, id, image, seller }) => {
               <p className="text-lg font-semibold text-white cursor-auto my-3">
                 ${price}
               </p>
-              <MdAddShoppingCart />
+              <div
+                className={`cursor-pointer ${
+                  !isProductInCart ? "text-gray-500" : "text-white"
+                }`}
+                onClick={() => {
+                  if (!isProductInCart) {
+                    dispatch(addToCart(product));
+                  }
+                }}
+              >
+                {isProductInCart ? <MdCheck /> : <MdAddShoppingCart />}
+              </div>
             </div>
           </div>
         </div>

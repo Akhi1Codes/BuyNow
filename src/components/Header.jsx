@@ -12,6 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.authSlice);
+  const data = useSelector((state) => state.cartSlice);
   const [logoutQuery] = useLogoutUserMutation();
   const searchRef = useRef(null);
   const [toggle, setToggle] = useState(false);
@@ -62,7 +63,7 @@ const Header = () => {
                   <div className="flex items-center">
                     <MdShoppingCart />
                     <p className="bg-[#f2cc8f] px-2 rounded-sm text-black flex font-semibold">
-                      0
+                      {data.NoOfProducts}
                     </p>
                   </div>
                   <div

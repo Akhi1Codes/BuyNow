@@ -6,7 +6,10 @@ import ProductDetails, {
 import Root from "./pages/root";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/register";
-import PasswordReset from "./pages/user/passwordreset";
+import PasswordForgot from "./pages/user/passwordForgot";
+import PasswordReset, {
+  loader as passwordResetLoader,
+} from "./pages/user/passwordReset";
 import Profile from "./pages/user/profile";
 // import AdminPortal from "./pages/admin/adminPortal";
 
@@ -40,7 +43,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/forgot-password",
+    element: <PasswordForgot />,
+  },
+  {
+    path: "/password/reset/:token",
     element: <PasswordReset />,
+    loader: passwordResetLoader,
   },
   // {
   //   path: "/adminportal",

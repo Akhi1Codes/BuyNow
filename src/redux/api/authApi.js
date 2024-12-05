@@ -30,6 +30,7 @@ export const authApi = createApi({
         method: "POST",
         body: email,
       }),
+      invalidatesTags: ["User"],
     }),
     getUser: builder.query({
       query: () => ({
@@ -63,6 +64,15 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+    resetPassword: builder.mutation({
+      query: (token, password, confirmPassword) => ({
+        url: `/api/v1/password/reset/${token}`,
+        method: "PUT",
+        body: { password, confirmPassword },
+        credentials: "include",
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -74,4 +84,5 @@ export const {
   useUpdateUserMutation,
   useUpdateUserPasswordMutation,
   useLogoutUserMutation,
+  useResetPasswordMutation,
 } = authApi;

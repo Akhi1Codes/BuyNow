@@ -14,10 +14,13 @@ import { IconContext } from "react-icons/lib";
 import { useDispatch } from "react-redux";
 import { setCategory } from "../redux/slices/categorySlice";
 import { clearSearched } from "../redux/slices/searchSlice";
+import { useNavigate } from "react-router-dom";
 
 const HeaderNav = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleClick(category) {
+    navigate("/");
     dispatch(setCategory(category));
     dispatch(clearSearched());
   }
