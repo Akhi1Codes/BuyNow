@@ -7,9 +7,9 @@ import Root from "./pages/root";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/register";
 import PasswordForgot from "./pages/user/passwordForgot";
-import PasswordReset, {
-  loader as passwordResetLoader,
-} from "./pages/user/passwordReset";
+// import PasswordReset, {
+//   loader as passwordResetLoader,
+// } from "./pages/user/passwordReset";
 import Profile from "./pages/user/profile";
 import Cart from "./pages/user/cart";
 // import AdminPortal from "./pages/admin/adminPortal";
@@ -50,11 +50,11 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: <PasswordForgot />,
   },
-  {
-    path: "/password/reset/:token",
-    element: <PasswordReset />,
-    loader: passwordResetLoader,
-  },
+  // {
+  //   path: "/password/reset/:token",
+  //   element: <PasswordReset />,
+  //   loader: passwordResetLoader,
+  // },
   // {
   //   path: "/adminportal",
   //   element: <AdminPortal />,
