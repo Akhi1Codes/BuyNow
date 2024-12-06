@@ -17,12 +17,13 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
+      console.log(action.payload.id);
       state.cart = state.cart.filter(
-        (product) => product.id !== action.payload.id
+        (product) => product._id !== action.payload.id
       );
       state.NoOfProducts = state.cart.length;
     },
   },
 });
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
