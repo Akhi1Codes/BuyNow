@@ -9,7 +9,7 @@ import Register from "./pages/user/register";
 import PasswordForgot from "./pages/user/passwordForgot";
 import PasswordReset, {
   loader as passwordResetLoader,
-} from "./pages/user/passwordreset";
+} from "./pages/user/passwordReset";
 import Profile from "./pages/user/profile";
 import Cart from "./pages/user/cart";
 // import AdminPortal from "./pages/admin/adminPortal";
