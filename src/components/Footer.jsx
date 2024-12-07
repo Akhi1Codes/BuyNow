@@ -1,7 +1,8 @@
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="flex justify-center bg-[#0d0e14] p-2 text-xs">
-      <p>Shopping Cart - 2019-2020, All Rights Reserverd.</p>
+      <p>BuyNow - {currentYear}, All Rights Reserverd.</p>
     </footer>
   );
 };
