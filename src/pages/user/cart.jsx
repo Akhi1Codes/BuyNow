@@ -88,7 +88,7 @@ const Cart = () => {
                 Total: <span className="px-1">${calculateTotal(products)}</span>
               </p>
             </div>
-            <Link to="/checkout">
+            <Link>
               <button className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">
                 Checkout
               </button>
