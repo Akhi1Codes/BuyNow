@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import MetaData from "../../utils/MetaData";
 import {
@@ -8,8 +9,9 @@ import {
 } from "../../redux/api/authApi";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [status, setStatus] = useState("");
-  const { data, isLoading: isLoadingUser } = useGetUserQuery();
+  const { data, isLoading, error } = useGetUserQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [updatePassword, { isLoading: isPasswordUpdating }] =
     useUpdateUserPasswordMutation();
@@ -41,6 +43,12 @@ const Profile = () => {
       });
     }
   }, [data]);
+
+  useEffect(() => {
+    if (error && error.status === 401) {
+      navigate("/login"); // Redirect to login page
+    }
+  }, [error, navigate]);
 
   const handleEdit = (field) => {
     if (inputRefs[field]) {
@@ -132,7 +140,7 @@ const Profile = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <MetaData title="Profile Page" content="Profile Details" />
-      {isLoadingUser ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="max-w-md mx-auto rounded-lg overflow-hidden">

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseUrl =
-  process.env.NODE_ENV === "PRODUCTION"
+  import.meta.env.NODE_ENV === "PRODUCTION"
     ? "https://buynow-backend-iasj.onrender.com" // Production URL
     : "http://localhost:4000"; // Development URL
 
