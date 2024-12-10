@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearched } from "../redux/slices/searchSlice";
 import { useLogoutUserMutation } from "../redux/api/authApi";
 import { logout } from "../redux/slices/authSlice";
+import { authApi } from "../redux/api/authApi";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Header = () => {
     try {
       dispatch(logout());
       await logoutQuery().unwrap();
+      dispatch(authApi.util.resetApiState());
       navigate("/");
     } catch (err) {
       console.error("Login failed:", err);

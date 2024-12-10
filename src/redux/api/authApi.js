@@ -1,10 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseUrl =
+  process.env.NODE_ENV === "PRODUCTION"
+    ? "https://buynow-backend-iasj.onrender.com" // Production URL
+    : "http://localhost:4000"; // Development URL
+
 export const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "http://localhost:4000",
-    baseUrl: "https://buynow-backend-iasj.onrender.com",
+    baseUrl,
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
@@ -15,6 +19,7 @@ export const authApi = createApi({
         body: credentials,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
     userRegister: builder.mutation({
       query: (userData) => ({
@@ -23,6 +28,7 @@ export const authApi = createApi({
         body: userData,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
     passwordForgot: builder.mutation({
       query: (email) => ({
@@ -37,6 +43,7 @@ export const authApi = createApi({
         url: "/api/v1/me",
         credentials: "include",
       }),
+      providesTags: ["User"],
     }),
     updateUser: builder.mutation({
       query: (userData) => ({
