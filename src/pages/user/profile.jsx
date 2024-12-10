@@ -127,211 +127,213 @@ const Profile = () => {
       }
     });
   };
-  if (isLoadingUser) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <MetaData title="Profile Page" content="Profile Details" />
-
-      <div className="max-w-md mx-auto rounded-lg overflow-hidden">
-        <div className="flex justify-center py-6">
-          <img
-            src={data?.user?.avatar?.url}
-            alt="Profile"
-            className="rounded-full w-32 h-32 object-cover border-4 border-gray-200"
-          />
-        </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSave(showPasswordField);
-          }}
-        >
-          <div className="p-6">
-            <div className="mb-4">
-              <label className="block text-gray-300 font-bold mb-2">Name</label>
-              <div className="flex items-center">
-                <input
-                  ref={inputRefs.name}
-                  type="text"
-                  value={editableUser.name}
-                  autoComplete="name "
-                  readOnly
-                  onChange={(e) =>
-                    setEditableUser((prev) => ({
-                      ...prev,
-                      name: e.target.value || "",
-                    }))
-                  }
-                  className={`w-[85%] px-3 py-2 border rounded ${
-                    editingField === "name"
-                      ? "bg-white text-black"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
-                />
-                {editingField !== "name" && (
-                  <button
-                    onClick={() => handleEdit("name")}
-                    className="ml-2 text-blue-500 hover:text-blue-700"
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-300 font-bold mb-2">
-                Email
-              </label>
-              <div className="flex items-center">
-                <input
-                  ref={inputRefs.email}
-                  type="email"
-                  value={editableUser.email}
-                  autoComplete="email"
-                  readOnly
-                  onChange={(e) =>
-                    setEditableUser((prev) => ({
-                      ...prev,
-                      email: e.target.value || "",
-                    }))
-                  }
-                  className={`w-[85%] px-3 py-2 border rounded ${
-                    editingField === "email"
-                      ? "bg-white text-black"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
-                />
-                {editingField !== "email" && (
-                  <button
-                    onClick={() => handleEdit("email")}
-                    className="ml-2 text-blue-500 hover:text-blue-700"
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            </div>
-            <div>
-              <div className="mb-6">
-                <label
-                  htmlFor="oldPassword"
-                  className="block text-gray-300 font-bold mb-2"
-                >
-                  Current Password
+      {isLoadingUser ? (
+        <Loader />
+      ) : (
+        <div className="max-w-md mx-auto rounded-lg overflow-hidden">
+          <div className="flex justify-center py-6">
+            <img
+              src={data?.user?.avatar?.url}
+              alt="Profile"
+              className="rounded-full w-32 h-32 object-cover border-4 border-gray-200"
+            />
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSave(showPasswordField);
+            }}
+          >
+            <div className="p-6">
+              <div className="mb-4">
+                <label className="block text-gray-300 font-bold mb-2">
+                  Name
                 </label>
                 <div className="flex items-center">
                   <input
-                    type="password"
-                    id="oldPassword"
-                    ref={inputRefs.password}
+                    ref={inputRefs.name}
+                    type="text"
+                    value={editableUser.name}
+                    autoComplete="name "
                     readOnly
-                    value={editableUser.oldPassword}
-                    autoComplete="current-password"
                     onChange={(e) =>
                       setEditableUser((prev) => ({
                         ...prev,
-                        oldPassword: e.target.value || "",
+                        name: e.target.value || "",
                       }))
                     }
-                    placeholder="*********"
-                    className="w-[85%] px-3 py-2 border rounded bg-gray-100 text-gray-700"
-                    required
+                    className={`w-[85%] px-3 py-2 border rounded ${
+                      editingField === "name"
+                        ? "bg-white text-black"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
                   />
-                  {!showPasswordField && (
+                  {editingField !== "name" && (
                     <button
+                      onClick={() => handleEdit("name")}
                       className="ml-2 text-blue-500 hover:text-blue-700"
-                      onClick={() => {
-                        setshowPasswordField(!showPasswordField);
-                        handleEdit("password");
-                      }}
                     >
-                      {" "}
                       Edit
                     </button>
                   )}
                 </div>
-                {status && <p className="text-sm text-red-700">{status}</p>}
               </div>
-              {showPasswordField && (
-                <div>
-                  <div className="mb-6">
-                    <label
-                      htmlFor="newPassword"
-                      className="block text-gray-300 font-bold mb-2"
-                    >
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      id="newPassword"
-                      autoComplete="new-password"
-                      value={editableUser.newPassword}
-                      onChange={(e) =>
-                        setEditableUser((prev) => ({
-                          ...prev,
-                          newPassword: e.target.value || "",
-                        }))
-                      }
-                      placeholder="Enter new password"
-                      className="w-[85%] px-3 py-2 border rounded bg-gray-100 text-gray-700"
-                      required
-                      minLength={8}
-                    />
-                  </div>
 
-                  <div className="mb-6">
-                    <label
-                      htmlFor="confirmNewPassword"
-                      className="block text-gray-300 font-bold mb-2"
+              <div className="mb-4">
+                <label className="block text-gray-300 font-bold mb-2">
+                  Email
+                </label>
+                <div className="flex items-center">
+                  <input
+                    ref={inputRefs.email}
+                    type="email"
+                    value={editableUser.email}
+                    autoComplete="email"
+                    readOnly
+                    onChange={(e) =>
+                      setEditableUser((prev) => ({
+                        ...prev,
+                        email: e.target.value || "",
+                      }))
+                    }
+                    className={`w-[85%] px-3 py-2 border rounded ${
+                      editingField === "email"
+                        ? "bg-white text-black"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  />
+                  {editingField !== "email" && (
+                    <button
+                      onClick={() => handleEdit("email")}
+                      className="ml-2 text-blue-500 hover:text-blue-700"
                     >
-                      Confirm New Password
-                    </label>
+                      Edit
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div>
+                <div className="mb-6">
+                  <label
+                    htmlFor="oldPassword"
+                    className="block text-gray-300 font-bold mb-2"
+                  >
+                    Current Password
+                  </label>
+                  <div className="flex items-center">
                     <input
                       type="password"
-                      id="confirmNewPassword"
-                      value={editableUser.confirmNewPassword}
-                      autoComplete="confirm-password"
+                      id="oldPassword"
+                      ref={inputRefs.password}
+                      readOnly
+                      value={editableUser.oldPassword}
+                      autoComplete="current-password"
                       onChange={(e) =>
                         setEditableUser((prev) => ({
                           ...prev,
-                          confirmNewPassword: e.target.value || "",
+                          oldPassword: e.target.value || "",
                         }))
                       }
-                      placeholder="Confirm new password"
+                      placeholder="*********"
                       className="w-[85%] px-3 py-2 border rounded bg-gray-100 text-gray-700"
                       required
-                      minLength={8}
                     />
+                    {!showPasswordField && (
+                      <button
+                        className="ml-2 text-blue-500 hover:text-blue-700"
+                        onClick={() => {
+                          setshowPasswordField(!showPasswordField);
+                          handleEdit("password");
+                        }}
+                      >
+                        {" "}
+                        Edit
+                      </button>
+                    )}
                   </div>
+                  {status && <p className="text-sm text-red-700">{status}</p>}
+                </div>
+                {showPasswordField && (
+                  <div>
+                    <div className="mb-6">
+                      <label
+                        htmlFor="newPassword"
+                        className="block text-gray-300 font-bold mb-2"
+                      >
+                        New Password
+                      </label>
+                      <input
+                        type="password"
+                        id="newPassword"
+                        autoComplete="new-password"
+                        value={editableUser.newPassword}
+                        onChange={(e) =>
+                          setEditableUser((prev) => ({
+                            ...prev,
+                            newPassword: e.target.value || "",
+                          }))
+                        }
+                        placeholder="Enter new password"
+                        className="w-[85%] px-3 py-2 border rounded bg-gray-100 text-gray-700"
+                        required
+                        minLength={8}
+                      />
+                    </div>
+
+                    <div className="mb-6">
+                      <label
+                        htmlFor="confirmNewPassword"
+                        className="block text-gray-300 font-bold mb-2"
+                      >
+                        Confirm New Password
+                      </label>
+                      <input
+                        type="password"
+                        id="confirmNewPassword"
+                        value={editableUser.confirmNewPassword}
+                        autoComplete="confirm-password"
+                        onChange={(e) =>
+                          setEditableUser((prev) => ({
+                            ...prev,
+                            confirmNewPassword: e.target.value || "",
+                          }))
+                        }
+                        placeholder="Confirm new password"
+                        className="w-[85%] px-3 py-2 border rounded bg-gray-100 text-gray-700"
+                        required
+                        minLength={8}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {(editingField || showPasswordField) && (
+                <div className="flex justify-between mt-4">
+                  <button
+                    type="submit"
+                    disabled={isUpdating}
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
+                  >
+                    {isUpdating || isPasswordUpdating ? "Saving..." : "Save"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                  >
+                    Cancel
+                  </button>
                 </div>
               )}
             </div>
-
-            {(editingField || showPasswordField) && (
-              <div className="flex justify-between mt-4">
-                <button
-                  type="submit"
-                  disabled={isUpdating}
-                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
-                >
-                  {isUpdating || isPasswordUpdating ? "Saving..." : "Save"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
