@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 import MetaData from "../../utils/MetaData";
 import {
   useGetUserQuery,
