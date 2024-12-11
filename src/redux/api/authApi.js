@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseUrl =
-  import.meta.env.NODE_ENV === "production"
-    ? "https://buynow-backend-iasj.onrender.com" // Production URL
-    : "http://localhost:4000"; // Development URL
+const baseUrl = "https://buynow-backend-iasj.onrender.com"; // Production URL
+//  "http://localhost:4000"; // Development URL
 
 export const authApi = createApi({
   reducerPath: "auth",
