@@ -43,7 +43,7 @@ const Header = () => {
     <IconContext.Provider value={{ color: "white", size: "1.5em " }}>
       <div className="sticky top-0 z-50 bg-[#0d0e14]">
         <div className="flex justify-center">
-          <nav className="p-3 flex w-full  md:w-[90%] gap-2 md:gap-3 justify-between flex-col">
+          <nav className="py-3 px-1 flex w-full  md:w-[90%] gap-2 md:gap-3 justify-between flex-col">
             <div className="flex justify-between md:w-full md:gap-1">
               <Link to="/">
                 <h1 className="text-3xl font-mono font-bold pr-4 text-white mr-auto">

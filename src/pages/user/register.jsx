@@ -70,16 +70,11 @@ const Register = () => {
                 <span className="sr-only">Close popup</span>
               </button>
             </Link>
-            <h2 className="my-3 text-center text-3xl font-bold tracking-tight text-white">
+            <h2 className="my-3 text-center text-2xl md:text-3xl font-bold tracking-tight text-white">
               Sign up for an account
             </h2>
 
-            <form
-              className="space-y-6"
-              method="POST"
-              onSubmit={submitHandler}
-              encType="multipart/form-data"
-            >
+            <form onSubmit={submitHandler} className="flex flex-col gap-2">
               <div>
                 <label
                   htmlFor="new-password"
@@ -140,21 +135,21 @@ const Register = () => {
                 </div>
               </div>
 
-              <div>
+              <div className="my-2">
                 <label
                   htmlFor="avatar_upload"
                   className="block text-sm font-medium text-white"
                 >
                   Avatar
                 </label>
-                <div className="flex justify-around items-center">
+                <div className="flex justify-around items-center flex-col md:flex-row">
                   <div>
                     <figure>
                       <img
                         src={avatarPreview}
                         alt="Avatar_preview"
                         width={60}
-                        className="rounded-full h-[65px]"
+                        className="rounded-full h-[65px] "
                       />
                     </figure>
                   </div>

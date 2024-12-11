@@ -11,7 +11,8 @@ import PasswordForgot from "./pages/user/passwordForgot";
 //   loader as passwordResetLoader,
 // } from "./pages/user/passwordReset";
 import Profile from "./pages/user/profile";
-import Cart from "./pages/user/cart";
+import Cart from "./pages/order/cart";
+import Shipping from "./pages/order/shipping";
 // import AdminPortal from "./pages/admin/adminPortal";
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/shipping",
+        element: <Shipping />,
       },
     ],
   },
