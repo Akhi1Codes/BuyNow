@@ -9,13 +9,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.cartSlice);
   const products = data.cart;
-  const calculateTotal = (products) => {
-    return products
-      .reduce((total, product) => {
-        return total + product.price * (product.quantity || 1);
-      }, 0)
-      .toFixed(2);
-  };
   return (
     <>
       <div className="flex justify-center items-center ">
@@ -82,19 +75,11 @@ const Cart = () => {
             ))
           )}
           {products?.length > 0 && (
-            <div className="flex justify-between items-center mt-6">
-              <div className="font-semibold">
-                <p className="text-2xl">
-                  Total:{" "}
-                  <span className="px-1">${calculateTotal(products)}</span>
-                </p>
-              </div>
-              <Link to="/shipping">
-                <button className="bg-[#f2cc8f] text-white py-2 px-6 rounded-md">
-                  Proceed
-                </button>
-              </Link>
-            </div>
+            <Link to="/shipping">
+              <button className="bg-[#f2cc8f] text-black py-2 px-6 rounded-md float-right">
+                Proceed
+              </button>
+            </Link>
           )}
         </div>
       </div>
