@@ -1,28 +1,63 @@
 import OrderStatus from "../../components/order/orderStatus";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setAddress } from "../../redux/slices/authSlice";
 
 const Shipping = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userDetails } = useSelector((state) => state.authSlice);
+
+  const [formState, setFormState] = useState({
+    details: {
+      address: userDetails.details.address || "",
+      city: userDetails.details.city || "",
+      postalCode: userDetails.details.postalCode || "",
+      country: userDetails.details.country || "",
+      phNumber: userDetails.details.phNumber || "",
+    },
+    selectedCountry: userDetails.details.selectedCountry || "",
+    taxAndShipping: { tax: 0, shipping: 0 },
+  });
+
   const countriesData = {
     "United States": { tax: 10, shipping: 20 },
     Canada: { tax: 12, shipping: 25 },
-    "United Kingdom": { tax: 15, shipping: 30 },
-    Australia: { tax: 10, shipping: 35 },
     India: { tax: 5, shipping: 15 },
-    Germany: { tax: 18, shipping: 28 },
-    France: { tax: 15, shipping: 26 },
-    China: { tax: 8, shipping: 20 },
-    Japan: { tax: 10, shipping: 25 },
-    Brazil: { tax: 20, shipping: 40 },
     // Add more countries as needed
   };
 
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [taxAndShipping, setTaxAndShipping] = useState({ tax: 0, shipping: 0 });
+  // Generic change handler for all input fields
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      details: {
+        ...prevState.details,
+        [name]: value, // Update specific detail dynamically
+      },
+    }));
+  };
 
+  // Handler for country selection
   const handleSelect = (event) => {
     const country = event.target.value;
-    setSelectedCountry(country);
-    setTaxAndShipping(countriesData[country] || { tax: 0, shipping: 0 });
+    setFormState((prevState) => ({
+      ...prevState,
+      selectedCountry: country,
+      details: {
+        ...prevState.details,
+        country, // Update the country in details
+      },
+      taxAndShipping: countriesData[country] || { tax: 0, shipping: 0 },
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(setAddress(formState));
+    navigate("/confirm-order");
   };
 
   return (
@@ -35,7 +70,10 @@ const Shipping = () => {
           <p className="font-bold text-3xl text-center mb-6">
             Shipping Address
           </p>
-          <form className="flex flex-col md:flex-row gap-6">
+          <form
+            className="flex flex-col md:flex-row gap-6"
+            onSubmit={handleSubmit}
+          >
             <div className="flex flex-col gap-4">
               <div>
                 <label
@@ -48,6 +86,8 @@ const Shipping = () => {
                   <input
                     name="address"
                     autoComplete="address"
+                    value={formState.details.address}
+                    onChange={handleChange}
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -65,6 +105,8 @@ const Shipping = () => {
                   <input
                     name="city"
                     autoComplete="city"
+                    value={formState.details.city}
+                    onChange={handleChange}
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -83,6 +125,8 @@ const Shipping = () => {
                     name="postalCode"
                     type="number"
                     autoComplete="postal-code"
+                    value={formState.details.postalCode}
+                    onChange={handleChange}
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
@@ -101,6 +145,8 @@ const Shipping = () => {
                   <input
                     name="phNumber"
                     type="number"
+                    value={formState.details.phNumber}
+                    onChange={handleChange}
                     autoComplete="mobile tel-national"
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
@@ -117,7 +163,7 @@ const Shipping = () => {
                 </label>
                 <select
                   id="country"
-                  value={selectedCountry}
+                  value={formState.selectedCountry}
                   onChange={handleSelect}
                   className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                 >

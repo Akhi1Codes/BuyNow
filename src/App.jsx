@@ -13,6 +13,7 @@ import PasswordForgot from "./pages/user/passwordForgot";
 import Profile from "./pages/user/profile";
 import Cart from "./pages/order/cart";
 import Shipping from "./pages/order/shipping";
+import ConfirmOrder from "./pages/order/confirmOrder";
 // import AdminPortal from "./pages/admin/adminPortal";
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/shipping",
         element: <Shipping />,
+      },
+      {
+        path: "/confirm-order",
+        element: <ConfirmOrder />,
       },
     ],
   },

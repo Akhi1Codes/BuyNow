@@ -8,6 +8,7 @@ import OrderStatus from "../../components/order/orderStatus";
 const Cart = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.cartSlice);
+  const { isAuthenticated } = useSelector((state) => state.authSlice);
   const products = data.cart;
   return (
     <>
@@ -22,8 +23,11 @@ const Cart = () => {
               <p className="text-lg font-semibold">Your cart is empty</p>
               <p className="text-sm text-gray-600">
                 Looks like you haven't added anything to your cart yet. Go ahead
-                and shop!
+                and
               </p>
+              <Link to={"/"}>
+                <p>continue shopping!</p>
+              </Link>
             </div>
           ) : (
             products?.map((product) => (
@@ -75,7 +79,7 @@ const Cart = () => {
             ))
           )}
           {products?.length > 0 && (
-            <Link to="/shipping">
+            <Link to={isAuthenticated ? "/shipping" : "/login"}>
               <button className="bg-[#f2cc8f] text-black py-2 px-6 rounded-md float-right">
                 Proceed
               </button>
