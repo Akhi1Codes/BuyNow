@@ -77,7 +77,7 @@ const Header = () => {
                     <MdOutlineSearch />
                   </div>
                 </div>
-                <div className="px-2 flex justify-center items-center ">
+                <div className="pl-2 flex justify-center items-center ">
                   {userData.isAuthenticated ? (
                     <img
                       width={35}
