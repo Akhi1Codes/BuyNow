@@ -11,13 +11,12 @@ const Shipping = () => {
 
   const [formState, setFormState] = useState({
     details: {
-      address: userDetails.details.address || "",
-      city: userDetails.details.city || "",
-      postalCode: userDetails.details.postalCode || "",
-      country: userDetails.details.country || "",
-      phNumber: userDetails.details.phNumber || "",
+      address: userDetails?.details.address || "",
+      city: userDetails?.details.city || "",
+      postalCode: userDetails?.details.postalCode || "",
+      phNumber: userDetails?.details.phNumber || "",
     },
-    selectedCountry: userDetails.details.selectedCountry || "",
+    selectedCountry: userDetails?.details.selectedCountry || "",
     taxAndShipping: { tax: 0, shipping: 0 },
   });
 
