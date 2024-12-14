@@ -1,10 +1,16 @@
 import OrderStatus from "../../components/order/orderStatus";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useUserCheckoutMutation } from "../../redux/api/orderApi";
 
 const ConfirmOrder = () => {
+  const dispatch = useDispatch();
   const { user, userDetails } = useSelector((state) => state.authSlice);
   const data = useSelector((state) => state.cartSlice);
   const products = data.cart;
+  const [userCheckout, { isLoading }] = useUserCheckoutMutation();
+
+  const shippingCost = Number(userDetails?.taxAndShipping?.shipping || 0);
+  const tax = Number(userDetails?.taxAndShipping?.tax || 0);
 
   const subtotalPrice = (products) => {
     return products
@@ -15,10 +21,34 @@ const ConfirmOrder = () => {
   };
 
   const totalPrice = () => {
-    const shippingCost = Number(userDetails?.taxAndShipping?.shipping || 0);
-    const tax = Number(userDetails?.taxAndShipping?.tax || 0);
     const subtotal = Number(subtotalPrice(products));
     return parseFloat((subtotal + shippingCost + tax).toFixed(2));
+  };
+
+  const checkout = async () => {
+    try {
+      const orderData = {
+        line_items: products.map((product) => ({
+          product_name: product.name,
+          price: product.price,
+          quantity: product.quantity || 1,
+        })),
+        shipping: {
+          shippingAmount: shippingCost,
+        },
+        tax: {
+          amount: tax,
+        },
+      };
+      const response = await userCheckout(orderData).unwrap();
+      const { paymentUrl } = response;
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+      }
+      console.log("Order successful");
+    } catch (err) {
+      console.error("Checkout failed", err);
+    }
   };
 
   const productAmount = () => {};
@@ -97,7 +127,11 @@ const ConfirmOrder = () => {
               <p>${totalPrice()}</p>
             </div>
             <div>
-              <button className="my-4 w-full  bg-[#f2cc8f] text-black rounded-md ">
+              <button
+                className="my-4 w-full  bg-[#f2cc8f] text-black rounded-md "
+                onClick={checkout}
+                disabled={isLoading}
+              >
                 Proceed to Payment
               </button>
             </div>
