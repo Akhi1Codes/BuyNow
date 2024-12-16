@@ -1,6 +1,0 @@
-{
-  "public": "build",
-  "routes": {
-    "/**": "index.html"
-  }
-}
