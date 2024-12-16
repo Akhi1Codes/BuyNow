@@ -19,7 +19,7 @@ const OrderSuccess = () => {
             <GiShoppingBag />
           </div>
           <div>
-            <p className="text-center">Hey, {user.name}</p>
+            <p className="text-center">Hey, {user?.name}</p>
             <p className="font-bold text-2xl text-center">
               Your Order is Confirmed!
             </p>
