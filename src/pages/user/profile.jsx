@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import MetaData from "../../utils/MetaData";
 import {
@@ -7,14 +6,16 @@ import {
   useUpdateUserMutation,
   useUpdateUserPasswordMutation,
 } from "../../redux/api/authApi";
+import useProtectedRouteRedirect from "../../hooks/useProtectedRouteRedirect";
 
 const Profile = () => {
-  const navigate = useNavigate();
   const [status, setStatus] = useState("");
   const { data, isLoading, error } = useGetUserQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [updatePassword, { isLoading: isPasswordUpdating }] =
     useUpdateUserPasswordMutation();
+
+  useProtectedRouteRedirect(error);
 
   const [editableUser, setEditableUser] = useState({
     name: "",
@@ -43,12 +44,6 @@ const Profile = () => {
       });
     }
   }, [data]);
-
-  useEffect(() => {
-    if (error && error.status === 401) {
-      navigate("/login"); // Redirect to login page
-    }
-  }, [error, navigate]);
 
   const handleEdit = (field) => {
     if (inputRefs[field]) {

@@ -1,6 +1,7 @@
 import OrderStatus from "../../components/order/orderStatus";
 import { useDispatch, useSelector } from "react-redux";
 import { useUserCheckoutMutation } from "../../redux/api/orderApi";
+import { setOrder } from "../../redux/slices/authSlice";
 
 const ConfirmOrder = () => {
   const dispatch = useDispatch();
@@ -41,17 +42,16 @@ const ConfirmOrder = () => {
         },
       };
       const response = await userCheckout(orderData).unwrap();
+      dispatch(setOrder(response));
       const { paymentUrl } = response;
       if (paymentUrl) {
         window.location.href = paymentUrl;
       }
-      console.log("Order successful");
     } catch (err) {
-      console.error("Checkout failed", err);
+      console.error(err);
     }
   };
 
-  const productAmount = () => {};
   return (
     <div>
       <div className="flex justify-center items-center ">

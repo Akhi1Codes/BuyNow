@@ -17,7 +17,25 @@ export const orderApi = createApi({
         credentials: "include",
       }),
     }),
+    newOrder: builder.mutation({
+      query: (order) => ({
+        url: "/api/v1/order/new",
+        method: "POST",
+        body: order,
+        credentials: "include",
+      }),
+    }),
+    userOrders: builder.query({
+      query: () => ({
+        url: "/api/v1/orders/me",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useUserCheckoutMutation } = orderApi;
+export const {
+  useUserCheckoutMutation,
+  useNewOrderMutation,
+  useUserOrdersQuery,
+} = orderApi;

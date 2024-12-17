@@ -15,6 +15,7 @@ import Cart from "./pages/order/cart";
 import Shipping from "./pages/order/shipping";
 import ConfirmOrder from "./pages/order/confirmOrder";
 import OrderSuccess from "./pages/order/orderSuccess";
+import Orders from "./pages/order/orders";
 // import AdminPortal from "./pages/admin/adminPortal";
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/success",
         element: <OrderSuccess />,
+      },
+      {
+        path: "/orders",
+        element: <Orders />,
       },
     ],
   },

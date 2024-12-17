@@ -121,7 +121,7 @@ const Header = () => {
                     Cart
                   </li>
                 </Link>
-                <Link onClick={() => setToggle(!toggle)}>
+                <Link to="orders" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                     Orders
                   </li>
