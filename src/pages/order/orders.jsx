@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 
 const Orders = () => {
   const { data, isLoading, error } = useUserOrdersQuery();
+  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -46,7 +47,9 @@ const Orders = () => {
                       <div className="my-1">
                         <p className="text-sm">Items:</p>
                         {order?.orderItems.map((item) => (
-                          <p className="text-xs font-light pl-2">{item.name}</p>
+                          <p key={item._id} className="text-xs font-light pl-2">
+                            {item.name}
+                          </p>
                         ))}
                       </div>
                       <p className="font-bold">${order.totalPrice}</p>
