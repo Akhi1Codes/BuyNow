@@ -25,7 +25,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage: sessionStorage,
-  blacklist: ["category", "search", "cartSlice"],
+  blacklist: ["category", "search", "cartSlice", orderApi.reducerPath],
 };
 
 const cartPersistConfig = {
