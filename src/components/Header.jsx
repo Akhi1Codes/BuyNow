@@ -111,23 +111,23 @@ const Header = () => {
             {userData.isAuthenticated && toggle ? (
               <ul className="bg-[#0d0e14] w-fit p-4  absolute right-0 top-12 cursor-pointer z-50">
                 {/* set !toggle to close the menu on selecting an item(auto close) */}
-                <Link to="me" onClick={() => setToggle(!toggle)}>
+                <Link to="/me" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                     Profile
                   </li>
                 </Link>
-                <Link to="cart" onClick={() => setToggle(!toggle)}>
+                <Link to="/cart" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                     Cart
                   </li>
                 </Link>
-                <Link to="orders" onClick={() => setToggle(!toggle)}>
+                <Link to="/orders" onClick={() => setToggle(!toggle)}>
                   <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                     Orders
                   </li>
                 </Link>
-                {userData.user.role == "admin" && (
-                  <Link to="adminportal" onClick={() => setToggle(!toggle)}>
+                {userData.user.role === "admin" && (
+                  <Link to="/adminportal" onClick={() => setToggle(!toggle)}>
                     <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                       Admin Portal
                     </li>
