@@ -16,7 +16,9 @@ import Shipping from "./pages/order/shipping";
 import ConfirmOrder from "./pages/order/confirmOrder";
 import OrderSuccess from "./pages/order/orderSuccess";
 import Orders from "./pages/order/orders";
-import OrderDetails from "./pages/order/orderDetails";
+import OrderDetails, {
+  loader as orderLoader,
+} from "./pages/order/orderDetails";
 // import AdminPortal from "./pages/admin/adminPortal";
 
 const router = createBrowserRouter([
@@ -58,8 +60,9 @@ const router = createBrowserRouter([
         element: <Orders />,
       },
       {
-        path: "/order-details",
+        path: "/order-details/:id",
         element: <OrderDetails />,
+        loader: orderLoader,
       },
     ],
   },

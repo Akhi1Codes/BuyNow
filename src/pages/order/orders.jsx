@@ -4,7 +4,6 @@ import Loader from "../../components/Loader";
 
 const Orders = () => {
   const { data, isLoading, error } = useUserOrdersQuery();
-  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -12,7 +11,7 @@ const Orders = () => {
 
   return (
     <div>
-      {data?.length === 0 ? (
+      {data?.length === 0 || "" ? (
         <div className="flex justify-center p-2 mb-4">
           <div className="md:w-[50%]">
             <p className="font-bold text-3xl text-center m-4">Your Orders</p>
@@ -54,7 +53,7 @@ const Orders = () => {
                       </div>
                       <p className="font-bold">${order.totalPrice}</p>
                     </div>
-                    <Link to={"/order-details"}>
+                    <Link to={`/order-details/${order._id}`}>
                       <button className="bg-[#f2cc8f] text-black rounded-md mt-auto">
                         View Details
                       </button>

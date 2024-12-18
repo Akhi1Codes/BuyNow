@@ -30,10 +30,15 @@ export const orderApi = createApi({
     userOrders: builder.query({
       query: () => ({
         url: "/api/v1/orders/me",
-        method: "GET",
         credentials: "include",
       }),
       providesTags: ["Order"],
+    }),
+    userOrderDetails: builder.query({
+      query: (id) => ({
+        url: `/api/v1/order/${id}`,
+        credentials: "include",
+      }),
     }),
   }),
 });
@@ -42,4 +47,5 @@ export const {
   useUserCheckoutMutation,
   useNewOrderMutation,
   useUserOrdersQuery,
+  useUserOrderDetailsQuery,
 } = orderApi;
