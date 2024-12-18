@@ -25,14 +25,15 @@ export const orderApi = createApi({
         body: order,
         credentials: "include",
       }),
-      providesTags: ["Order"],
+      invalidatesTags: ["Order"],
     }),
     userOrders: builder.query({
       query: () => ({
         url: "/api/v1/orders/me",
+        method: "GET",
         credentials: "include",
       }),
-      invalidatesTags: ["Order"],
+      providesTags: ["Order"],
     }),
   }),
 });
