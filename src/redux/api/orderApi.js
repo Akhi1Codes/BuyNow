@@ -8,6 +8,7 @@ export const orderApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://buynow-backend-iasj.onrender.com",
   }),
+  tagTypes: ["Order"],
   endpoints: (builder) => ({
     userCheckout: builder.mutation({
       query: (cartProducts) => ({
@@ -24,12 +25,14 @@ export const orderApi = createApi({
         body: order,
         credentials: "include",
       }),
+      providesTags: ["Order"],
     }),
     userOrders: builder.query({
       query: () => ({
         url: "/api/v1/orders/me",
         credentials: "include",
       }),
+      invalidatesTags: ["Order"],
     }),
   }),
 });

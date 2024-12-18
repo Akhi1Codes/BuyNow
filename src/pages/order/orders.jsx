@@ -51,9 +51,11 @@ const Orders = () => {
                       </div>
                       <p className="font-bold">${order.totalPrice}</p>
                     </div>
-                    <button className="bg-[#f2cc8f] text-black rounded-md mt-auto">
-                      View Details
-                    </button>
+                    <Link to={"/order-details"}>
+                      <button className="bg-[#f2cc8f] text-black rounded-md mt-auto">
+                        View Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               ))}
