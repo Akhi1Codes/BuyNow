@@ -1,0 +1,21 @@
+User-agent: *
+# Allow all bots to access the main website and products
+Allow: /
+Allow: /product/
+Allow: /me
+Allow: /cart
+Allow: /shipping
+Allow: /confirm-order
+Allow: /success
+Allow: /orders
+Allow: /order-details/
+
+# Disallow bots from accessing sensitive pages and authentication paths
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /password/reset/
+Disallow: /adminportal
+
+# Sitemap location
+Sitemap: https://www.yourwebsite.com/sitemap.xml
