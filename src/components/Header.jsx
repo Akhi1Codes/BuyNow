@@ -46,7 +46,7 @@ const Header = () => {
           <nav className="py-3 px-1 flex w-full  md:w-[90%] gap-2 md:gap-3 justify-between flex-col">
             <div className="flex justify-between md:w-full md:gap-1">
               <Link to="/">
-                <h1 className="text-3xl font-mono font-bold pr-4 text-white mr-auto">
+                <h1 className="text-2xl md:text-3xl font-mono font-bold pr-4 text-white mr-auto">
                   BuyNow
                 </h1>
               </Link>
