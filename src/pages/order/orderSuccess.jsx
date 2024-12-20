@@ -11,10 +11,11 @@ const OrderSuccess = () => {
   const { user, userDetails, orderDetails } = useSelector(
     (state) => state.authSlice
   );
-  const data = useSelector((state) => state.cartSlice);
-  const products = data.cart;
-  console.log(products);
-  const [order] = useNewOrderMutation();
+  const cartporducts = useSelector((state) => state.cartSlice);
+  const products = cartporducts.cart;
+  const [order, { data, isLoading }] = useNewOrderMutation();
+  const id = data?.order._id;
+  console.log(data);
   useEffect(() => {
     const currentDateTime = new Date().toISOString();
     if (products.length > 0) {
@@ -75,9 +76,11 @@ const OrderSuccess = () => {
             </p>
           </div>
           <div className="my-6 flex justify-around w-full">
-            <button className="  text-[#f2cc8f] bg-black rounded-md ">
-              View Order
-            </button>
+            <Link to={`/order-details/${id}`}>
+              <button className="  text-[#f2cc8f] bg-black rounded-md ">
+                View Order
+              </button>
+            </Link>
             <Link to={"/"}>
               <button className=" bg-[#f2cc8f] text-black rounded-md ">
                 Continue Shopping
