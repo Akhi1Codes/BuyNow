@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CgComponents, CgGames } from "react-icons/cg";
 import {
   MdElectricalServices,
@@ -19,98 +20,60 @@ import { useNavigate } from "react-router-dom";
 const HeaderNav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState("All Products");
+
   function handleClick(category) {
+    setActiveTab(category || "All Products");
     navigate("/");
     dispatch(setCategory(category));
     dispatch(clearSearched());
   }
   return (
-    <IconContext.Provider value={{ color: "white", size: "2.5em " }}>
+    <IconContext.Provider value={{ color: "white", size: "2.5em" }}>
       <div className="lg:flex lg:justify-center scroll p-2 flex gap-6 whitespace-nowrap overflow-x-scroll font-light text-sm">
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick()}
-        >
-          <CgComponents />
-          <p>All Products</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Electronics")}
-        >
-          <MdElectricalServices />
-          <p>Electronics</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Food")}
-        >
-          <MdOutlineFastfood />
-          <p>Food</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Clothing")}
-        >
-          <GiClothes />
-          <p>Clothing</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Kitchen")}
-        >
-          <FaKitchenSet />
-          <p>Kitchen</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Beauty")}
-        >
-          <RiBrushFill />
-          <p>Beauty Care</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Sports")}
-        >
-          <MdOutlineSports />
-          <p>Sports</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("ToysandGames")}
-        >
-          <CgGames />
-          <p>Toys & Games</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Books")}
-        >
-          <ImBooks />
-          <p>Books</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Automotive")}
-        >
-          <GiAutoRepair />
-          <p>Automotive</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("Fitness")}
-        >
-          <MdFitnessCenter />
-          <p>Fitness</p>
-        </div>
-        <div
-          className="flex flex-col items-center justify-center cursor-pointer w-20"
-          onClick={() => handleClick("OfficeSupplies")}
-        >
-          <MdBusinessCenter />
-          <p>Office Supplies</p>
-        </div>
+        {[
+          { label: "All Products", icon: <CgComponents />, category: null },
+          {
+            label: "Electronics",
+            icon: <MdElectricalServices />,
+            category: "Electronics",
+          },
+          { label: "Food", icon: <MdOutlineFastfood />, category: "Food" },
+          { label: "Clothing", icon: <GiClothes />, category: "Clothing" },
+          { label: "Kitchen", icon: <FaKitchenSet />, category: "Kitchen" },
+          { label: "Beauty Care", icon: <RiBrushFill />, category: "Beauty" },
+          { label: "Sports", icon: <MdOutlineSports />, category: "Sports" },
+          {
+            label: "Toys & Games",
+            icon: <CgGames />,
+            category: "ToysandGames",
+          },
+          { label: "Books", icon: <ImBooks />, category: "Books" },
+          {
+            label: "Automotive",
+            icon: <GiAutoRepair />,
+            category: "Automotive",
+          },
+          { label: "Fitness", icon: <MdFitnessCenter />, category: "Fitness" },
+          {
+            label: "Office Supplies",
+            icon: <MdBusinessCenter />,
+            category: "OfficeSupplies",
+          },
+        ].map((item) => (
+          <div
+            key={item.label}
+            className={`flex flex-col items-center justify-center cursor-pointer w-20 ${
+              activeTab === item.label
+                ? "text-[#f2cc8f] font-semibold"
+                : "text-white"
+            }`}
+            onClick={() => handleClick(item.category)}
+          >
+            {item.icon}
+            <p>{item.label}</p>
+          </div>
+        ))}
       </div>
     </IconContext.Provider>
   );
