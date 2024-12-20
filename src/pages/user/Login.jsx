@@ -113,7 +113,7 @@ const Login = () => {
               </form>
 
               <div className="text-center text-sm text-slate-600">
-                Don't have an account? test@gmail.com 987654321
+                Don't have an account?
                 <Link to="/register" className="font-medium text-[#4285f4]">
                   Sign up
                 </Link>
