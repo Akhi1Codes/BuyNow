@@ -69,17 +69,17 @@ const OrderSuccess = () => {
             <p className="font-bold text-2xl text-center">
               Your Order is Confirmed!
             </p>
-            <p className="text-sm w-[50ch] text-center">
+            <p className="text-sm md:w-[50ch] text-center">
               Thank you for your purchase. We’re excited to let you know that
               your order is being processed and will soon be on its way!
             </p>
           </div>
-          <div className="m-6">
-            <button className="mx-4  text-[#f2cc8f] bg-black rounded-md ">
+          <div className="my-6 flex justify-around w-full">
+            <button className="  text-[#f2cc8f] bg-black rounded-md ">
               View Order
             </button>
             <Link to={"/"}>
-              <button className="mx-4  bg-[#f2cc8f] text-black rounded-md ">
+              <button className=" bg-[#f2cc8f] text-black rounded-md ">
                 Continue Shopping
               </button>
             </Link>
