@@ -16,6 +16,15 @@ const OrderSuccess = () => {
   const [order, { data, isLoading }] = useNewOrderMutation();
   const id = data?.order._id;
   console.log(data);
+
+  const subtotal = products.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const tax = (userDetails?.taxAndShipping.tax / 100) * subtotal; // Assuming tax is a percentage
+  const shippingPrice = userDetails?.taxAndShipping.shipping || 0;
+  const totalPrice = subtotal + tax + shippingPrice;
+
   useEffect(() => {
     const currentDateTime = new Date().toISOString();
     if (products.length > 0) {
@@ -39,11 +48,10 @@ const OrderSuccess = () => {
           status: "Paid",
         },
         paidAt: currentDateTime,
-        itemsPrice: 104.94,
-        taxPrice: userDetails?.taxAndShipping.tax, // Assuming 17% tax
-        shippingPrice: userDetails?.taxAndShipping.shipping,
-        totalPrice: 128.42,
-        orderStatus: "Order confirmed",
+        taxPrice: tax,
+        shippingPrice: shippingPrice,
+        totalPrice: totalPrice,
+        orderStatus: "Order Confirmed",
         deliveredAt: null, // Not yet delivered
         createdAt: currentDateTime,
       };

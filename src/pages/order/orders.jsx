@@ -32,7 +32,9 @@ const Orders = () => {
                       </p>
                     ))}
                   </div>
-                  <p className="font-bold">${order.totalPrice}</p>
+                  <p className="font-bold">
+                    ${Math.round(order.totalPrice)}.00
+                  </p>
                 </div>
                 <Link to={`/order-details/${order._id}`}>
                   <button className="bg-[#f2cc8f] text-black rounded-md mt-auto">

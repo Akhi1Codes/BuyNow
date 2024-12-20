@@ -11,27 +11,34 @@ const orderDetails = () => {
   const { id } = useLoaderData();
   const { data, isLoading } = useUserOrderDetailsQuery(id);
   const order = data?.order;
+  console.log(order);
   const orderItems = data?.order.orderItems;
-  let currentStep = 2;
-  const getStepStyle = (step) => {
-    return step <= currentStep
-      ? "text-[#f2cc8f] font-semibold"
-      : "text-gray-500 font-semibold";
+
+  const stepMap = {
+    "Order Confirmed": 1,
+    Pending: 2,
+    Delivered: 3,
   };
 
-  const getLineStyle = (step) => {
-    return step < currentStep ? "bg-[#f2cc8f]" : "bg-gray-500";
-  };
+  const currentStep = stepMap[order?.orderStatus];
+
+  const getStepStyle = (step) =>
+    step <= currentStep
+      ? "text-[#f2cc8f] font-semibold"
+      : "text-gray-500 font-semibold";
+
+  const getLineStyle = (step) =>
+    step < currentStep ? "bg-[#f2cc8f]" : "bg-gray-500";
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <div className="md:flex my-4 mx-2">
+    <div className="md:flex md:mx-10 my-4 mx-2">
       <div className="grow">
         <p className="font-bold text-xl">Items Ordered & Delivery Details</p>
-        <div className="flex justify-between items-center gap-4 m-12 ">
+        <div className="flex justify-between items-center gap-4 m-5 md:m-12 ">
           <p className={`${getStepStyle(1)} text-nowrap text-sm`}>
             Order Confirmed
           </p>
@@ -71,7 +78,7 @@ const orderDetails = () => {
           })}
         </div>
       </div>
-      <div className="md:pl-6">
+      <div className="md:pl-6 md:w-[30%]">
         <div>
           <p className="font-bold text-xl">Delivery Address</p>
           <div className="p-4 border border-dotted rounded-md my-4">
@@ -102,7 +109,9 @@ const orderDetails = () => {
             <div>
               <div className="flex justify-between p-1">
                 <p className="font-extralight text-sm">Tax : </p>
-                <p className="font-extralight text-sm">${order?.taxPrice}</p>
+                <p className="font-extralight text-sm">
+                  ${Math.round(order?.taxPrice)}
+                </p>
               </div>
               <div className="flex justify-between p-1">
                 <p className="font-extralight text-sm">Shipping : </p>
@@ -113,7 +122,7 @@ const orderDetails = () => {
             </div>
             <div className="flex justify-between p-1 border-t border-dotted">
               <p>Total</p>
-              <p>${order?.totalPrice}</p>
+              <p>${Math.round(order?.totalPrice)}.00</p>
             </div>
           </div>
         </div>

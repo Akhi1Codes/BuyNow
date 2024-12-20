@@ -142,7 +142,6 @@ const Shipping = () => {
                     type="number"
                     inputMode="numeric"
                     autoComplete="postal-code"
-                    max={6}
                     value={formState.details.postalCode}
                     onChange={handleChange}
                     required
@@ -165,6 +164,7 @@ const Shipping = () => {
                     type="tel"
                     inputMode="numeric"
                     pattern="^\+?[1-9]\d{1,14}$"
+                    placeholder="+91xxxxxxxxxx"
                     value={formState.details.phNumber}
                     onChange={handleChange}
                     autoComplete="mobile tel-national"

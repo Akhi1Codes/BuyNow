@@ -10,9 +10,6 @@ const ConfirmOrder = () => {
   const products = data.cart;
   const [userCheckout, { isLoading }] = useUserCheckoutMutation();
 
-  const shippingCost = Number(userDetails?.taxAndShipping?.shipping || 0);
-  const tax = Number(userDetails?.taxAndShipping?.tax || 0);
-
   const subtotalPrice = (products) => {
     return products
       .reduce((total, product) => {
@@ -20,6 +17,11 @@ const ConfirmOrder = () => {
       }, 0)
       .toFixed(2);
   };
+
+  const calculatedSubtotalPrice = Number(subtotalPrice(products));
+  const shippingCost = Number(userDetails?.taxAndShipping?.shipping || 0);
+  const taxRate = Number(userDetails?.taxAndShipping.tax || 0);
+  const tax = Math.round((taxRate / 100) * calculatedSubtotalPrice);
 
   const totalPrice = () => {
     const subtotal = Number(subtotalPrice(products));
@@ -119,7 +121,7 @@ const ConfirmOrder = () => {
               </div>
               <div className="flex justify-between">
                 <p className="font-semibold">Tax :</p>
-                <p>${userDetails?.taxAndShipping.tax}</p>
+                <p>{userDetails?.taxAndShipping.tax}%</p>
               </div>
             </div>
             <div className="flex justify-between border-y py-2 border-gray-500">
