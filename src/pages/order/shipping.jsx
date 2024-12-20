@@ -24,6 +24,23 @@ const Shipping = () => {
     "United States": { tax: 10, shipping: 20 },
     Canada: { tax: 12, shipping: 25 },
     India: { tax: 5, shipping: 15 },
+    "United Kingdom": { tax: 15, shipping: 30 },
+    Australia: { tax: 10, shipping: 35 },
+    Germany: { tax: 18, shipping: 25 },
+    France: { tax: 20, shipping: 28 },
+    Japan: { tax: 8, shipping: 40 },
+    China: { tax: 6, shipping: 20 },
+    Brazil: { tax: 15, shipping: 45 },
+    "South Africa": { tax: 12, shipping: 50 },
+    "United Arab Emirates": { tax: 5, shipping: 35 },
+    Mexico: { tax: 14, shipping: 30 },
+    Russia: { tax: 17, shipping: 50 },
+    Italy: { tax: 20, shipping: 30 },
+    Spain: { tax: 19, shipping: 28 },
+    Netherlands: { tax: 18, shipping: 25 },
+    Singapore: { tax: 7, shipping: 35 },
+    "New Zealand": { tax: 15, shipping: 40 },
+    "South Korea": { tax: 10, shipping: 35 },
     // Add more countries as needed
   };
 
@@ -123,7 +140,9 @@ const Shipping = () => {
                   <input
                     name="postalCode"
                     type="number"
+                    inputMode="numeric"
                     autoComplete="postal-code"
+                    max={6}
                     value={formState.details.postalCode}
                     onChange={handleChange}
                     required
@@ -143,10 +162,13 @@ const Shipping = () => {
                 <div className="mt-1">
                   <input
                     name="phNumber"
-                    type="number"
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="^\+?[1-9]\d{1,14}$"
                     value={formState.details.phNumber}
                     onChange={handleChange}
                     autoComplete="mobile tel-national"
+                    max={10}
                     required
                     className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                   />
