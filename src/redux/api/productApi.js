@@ -20,8 +20,22 @@ export const productApi = createApi({
     }),
     getProduct: builder.query({
       query: (id) => `/api/v1/products/${id}`,
+      providesTags: (id) => [{ type: "Product", id }],
+    }),
+    productReview: builder.mutation({
+      query: (newReview) => ({
+        url: "/api/v1/review",
+        method: "PUT",
+        body: newReview,
+        credentials: "include",
+      }),
+      invalidatesTags: ({ productId }) => [{ type: "Product", id: productId }],
     }),
   }),
 });
 
-export const { useGetAllProductQuery, useGetProductQuery } = productApi;
+export const {
+  useGetAllProductQuery,
+  useGetProductQuery,
+  useProductReviewMutation,
+} = productApi;

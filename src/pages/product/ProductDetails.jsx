@@ -69,9 +69,14 @@ function ProductDetails() {
                 </p>
                 <div className="flex items-center gap-1">
                   {productdetails &&
-                    [...Array(rating)].map((index) => (
-                      <img className="h-4" src={star} key={index} />
+                    [...Array(rating)].map((_, index) => (
+                      <img
+                        className="h-4"
+                        src={star}
+                        key={`${index}-${rating}`}
+                      />
                     ))}
+
                   <p className="font-light italic px-2">
                     - &#40;{productdetails?.ratings}&#41; rating
                   </p>

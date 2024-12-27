@@ -1,17 +1,21 @@
 import { useLoaderData } from "react-router-dom";
 import { useUserOrderDetailsQuery } from "../../redux/api/orderApi";
+import { useProductReviewMutation } from "../../redux/api/productApi";
 import Loader from "../../components/Loader";
+import { useState } from "react";
 
 export async function loader({ params }) {
   const id = params.id;
   return { id };
 }
 
-const orderDetails = () => {
+const OrderDetails = () => {
   const { id } = useLoaderData();
   const { data, isLoading } = useUserOrderDetailsQuery(id);
+  const [review] = useProductReviewMutation();
+  const [reviewStates, setReviewStates] = useState({}); // State for all reviews
+
   const order = data?.order;
-  console.log(order);
   const orderItems = data?.order.orderItems;
 
   const stepMap = {
@@ -30,6 +34,30 @@ const orderDetails = () => {
   const getLineStyle = (step) =>
     step < currentStep ? "bg-[#f2cc8f]" : "bg-gray-500";
 
+  const handleReviewChange = (id, field, value) => {
+    setReviewStates((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: value,
+      },
+    }));
+  };
+
+  const submitReview = async (id) => {
+    const productReview = reviewStates[id];
+    if (!productReview?.rating || !productReview?.comment) {
+      alert("Please provide a rating and a comment.");
+      return;
+    }
+
+    const results = await review({
+      rating: productReview.rating,
+      comment: productReview.comment,
+      productId: id,
+    });
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -38,7 +66,7 @@ const orderDetails = () => {
     <div className="md:flex md:mx-10 my-4 mx-2">
       <div className="grow">
         <p className="font-bold text-xl">Items Ordered & Delivery Details</p>
-        <div className="flex justify-between items-center gap-4 m-5 md:m-12 ">
+        <div className="flex justify-between items-center gap-4 m-5 md:m-12">
           <p className={`${getStepStyle(1)} text-nowrap text-sm`}>
             Order Confirmed
           </p>
@@ -49,12 +77,16 @@ const orderDetails = () => {
         </div>
         <div>
           {orderItems?.map((item) => {
+            const productReview = reviewStates[item.product] || {
+              rating: 1,
+              comment: "",
+            };
             return (
               <div
                 key={item._id}
                 className="p-3 border-dotted border m-2 rounded-md"
               >
-                <div className="flex gap-2">
+                <div className="flex gap-6">
                   <div className="w-20">
                     <img
                       src={item?.image}
@@ -71,6 +103,49 @@ const orderDetails = () => {
                     <p className="font-semibold">
                       ${item?.price * item?.quantity}
                     </p>
+                    {order?.orderStatus === "Delivered" && (
+                      <>
+                        <p className="text-xs">Rate the product:</p>
+                        <div className="flex gap-2 py-2">
+                          <select
+                            className="text-xs"
+                            value={productReview.rating}
+                            onChange={(e) =>
+                              handleReviewChange(
+                                item.product,
+                                "rating",
+                                Number(e.target.value)
+                              )
+                            }
+                          >
+                            {[1, 2, 3, 4, 5].map((value) => (
+                              <option key={value} value={value}>
+                                {value}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="text"
+                            placeholder="Review the product"
+                            className="text-xs border p-1"
+                            value={productReview.comment || ""}
+                            onChange={(e) =>
+                              handleReviewChange(
+                                item.product,
+                                "comment",
+                                e.target.value
+                              )
+                            }
+                          />
+                          <button
+                            className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                            onClick={() => submitReview(item.product)}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -98,7 +173,7 @@ const orderDetails = () => {
           <div className="m-2">
             {order?.orderItems?.map((item) => {
               return (
-                <div className="flex justify-between p-1" key={item._id}>
+                <div className="flex justify-between p-1" key={item.product}>
                   <p className="font-extralight text-sm">{item?.name}</p>
                   <p className="font-extralight text-sm">
                     ${item?.price * item?.quantity}
@@ -131,4 +206,4 @@ const orderDetails = () => {
   );
 };
 
-export default orderDetails;
+export default OrderDetails;
