@@ -11,7 +11,7 @@ export async function loader({ params }) {
 
 const OrderDetails = () => {
   const { id } = useLoaderData();
-  const { data, isLoading } = useUserOrderDetailsQuery(id);
+  const { data, isLoading, refetch } = useUserOrderDetailsQuery(id);
   const [review] = useProductReviewMutation();
   const [reviewStates, setReviewStates] = useState({}); // State for all reviews
 
@@ -56,6 +56,9 @@ const OrderDetails = () => {
       comment: productReview.comment,
       productId: id,
     });
+    if (results?.data.success) {
+      refetch();
+    }
   };
 
   if (isLoading) {
