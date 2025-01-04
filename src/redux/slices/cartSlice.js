@@ -1,3 +1,7 @@
+/**
+ * @param {{_id:string}} item
+ */
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
