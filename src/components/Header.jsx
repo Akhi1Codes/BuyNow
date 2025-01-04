@@ -127,7 +127,7 @@ const Header = () => {
                   </li>
                 </Link>
                 {userData.user.role === "admin" && (
-                  <Link to="/adminportal" onClick={() => setToggle(!toggle)}>
+                  <Link to="/admin" onClick={() => setToggle(!toggle)}>
                     <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                       Admin Portal
                     </li>

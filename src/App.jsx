@@ -19,7 +19,8 @@ import Orders from "./pages/order/orders";
 import OrderDetails, {
   loader as orderLoader,
 } from "./pages/order/orderDetails";
-// import AdminPortal from "./pages/admin/adminPortal";
+import AdminRoot from "./pages/adminRoot.jsx";
+import Products from "./pages/admin/products.jsx";
 
 const router = createBrowserRouter([
   {
@@ -83,10 +84,16 @@ const router = createBrowserRouter([
   //   element: <PasswordReset />,
   //   loader: passwordResetLoader,
   // },
-  // {
-  //   path: "/adminportal",
-  //   element: <AdminPortal />,
-  // },
+  {
+    path: "/admin",
+    element: <AdminRoot />,
+    children:[
+      {
+        path: "/admin",
+        element: <Products />,
+      },
+    ]
+  },
 ]);
 
 function App() {
