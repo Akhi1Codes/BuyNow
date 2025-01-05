@@ -1,27 +1,26 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import useIsSmallScreen from "../hooks/useIsSmallScreen.jsx"; // Import the custom hook
+import React, {createContext, useState, useContext, useEffect} from "react";
+import useIsSmallScreen from "../hooks/useIsSmallScreen.jsx";
 
 const SidebarContext = createContext();
 
-export const SidebarProvider = ({ children }) => {
-    const isSmallScreen = useIsSmallScreen(); // Use the custom hook to get screen size info
-    const [isOpen, setIsOpen] = useState(isSmallScreen); // Set initial state based on screen size
+export const SidebarProvider = ({children}) => {
+    const isSmallScreen = useIsSmallScreen();
+    const [isOpen, setIsOpen] = useState(isSmallScreen);
 
     const toggleSidebar = () => {
         setIsOpen((prev) => !prev);
     };
 
-    // Update the sidebar state when screen size changes
     useEffect(() => {
         if (!isSmallScreen) {
-            setIsOpen(true); // Ensure sidebar is open on large screens
+            setIsOpen(true);
         } else {
-            setIsOpen(false); // Ensure sidebar is closed on small screens
+            setIsOpen(false);
         }
     }, [isSmallScreen]);
 
     return (
-        <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
+        <SidebarContext.Provider value={{isOpen, toggleSidebar}}>
             {children}
         </SidebarContext.Provider>
     );

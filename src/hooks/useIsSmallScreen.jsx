@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import {useState, useLayoutEffect} from "react";
 
 const useIsSmallScreen = () => {
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth < 768); // Check if screen width is less than 768px
         };
