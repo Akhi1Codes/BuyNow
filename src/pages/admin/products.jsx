@@ -1,12 +1,25 @@
-import {useGetAllProductQuery} from "../../redux/api/productApi.js";
+import {useGetAllProductQuery, useDeleteProductMutation} from "../../redux/api/productApi.js";
 import ProductModal from "../../components/admin/NewProductModel.jsx";
 import {MdDelete} from "react-icons/md";
 import {useState} from "react";
 
 const Products = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {data} = useGetAllProductQuery("");
+    const {data, refetch} = useGetAllProductQuery("");
+    const [deleteProduct] = useDeleteProductMutation()
     let products = data?.products;
+
+    const handleDelete = async (_id) => {
+        try {
+            await deleteProduct(_id).unwrap();
+            refetch()
+            console.log('Deleted Product:', _id);
+        } catch (err) {
+            console.error("Login failed:", err);
+        }
+    };
+
+    const closeModal = () => setIsModalOpen(false);
 
     return (
         <div className="m-4 border-[1px] border-white/15 rounded-lg">
@@ -18,15 +31,15 @@ const Products = () => {
                     </button>
                 </div>
                 {isModalOpen &&
-                    <ProductModal/>}
+                    <ProductModal close={closeModal}/>}
             </div>
 
             <div
                 className="grid grid-cols-5 gap-4 p-2 text-sm font-extralight border-y-[1px] items-center justify-items-center">
                 <p>Product Name</p>
-                <p>Category</p>
                 <p>Stock</p>
                 <p>Price</p>
+                <p>Product Details</p>
                 <p>Delete</p>
             </div>
             {
@@ -39,10 +52,10 @@ const Products = () => {
                                  className="w-[30%] h-[30%] hidden md:block"/>
                             <p className="text-sm md:text-base w-full max-w-[200px] truncate">{product.name}</p>
                         </div>
-                        <p className="text-sm md:text-base text-center w-full max-w-[150px] truncate">{product.category}</p>
                         <p className="text-sm md:text-base text-center w-full max-w-[150px] truncate">{product.stock}</p>
                         <p className="text-sm md:text-base text-center w-full max-w-[150px] truncate">{product.price}</p>
-                        <MdDelete className="text-red-500 cursor-pointer"/>
+                        <p className=" cursor-pointer">Details</p>
+                        <MdDelete className="text-red-500 cursor-pointer" onClick={() => handleDelete(product._id)}/>
                     </div>
                 ))
             }

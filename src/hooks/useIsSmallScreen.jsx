@@ -1,22 +1,21 @@
-import {useState, useLayoutEffect} from "react";
+import {useState, useEffect} from "react";
 
 const useIsSmallScreen = () => {
-    const [isSmallScreen, setIsSmallScreen] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(null);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
-            setIsSmallScreen(window.innerWidth < 768); // Check if screen width is less than 768px
+            setIsSmallScreen(window.innerWidth < 768);
         };
-
-        handleResize(); // Check screen size on initial load
-        window.addEventListener("resize", handleResize); // Add resize event listener
-
-        // Cleanup the event listener on component unmount
+        handleResize();
+        window.addEventListener("resize", handleResize);
         return () => {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
-
+    if (isSmallScreen === null) {
+        return null;
+    }
     return isSmallScreen;
 };
 

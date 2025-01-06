@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import {useGetAllProductQuery, useNewProductMutation} from "../../redux/api/productApi.js";
 
-const ProductModal = () => {
+const ProductModal = ({close}) => {
+    const [product, {isLoading}] = useNewProductMutation();
+    const {refetch} = useGetAllProductQuery("");
     const [productData, setProductData] = useState({
         name: '',
         price: '',
@@ -51,22 +54,30 @@ const ProductModal = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here, you would typically handle the product submission to your API
-        console.log('Submitting Product:', productData);
+        try {
+            await product(productData).unwrap();
+            refetch()
+            close()
+        } catch (err) {
+            console.error("Login failed:", err);
+        }
     };
 
     // List of categories for dropdown
     const categories = [
         "Electronics",
-        "Fashion",
-        "Home & Kitchen",
-        "Books",
+        "Food",
+        "Clothing",
+        "Kitchen",
         "Beauty",
         "Sports",
-        "Toys",
+        "ToysandGames",
+        "Books",
         "Automotive",
+        "Fitness",
+        "OfficeSupplies",
     ];
 
     return (
@@ -166,7 +177,7 @@ const ProductModal = () => {
                     </div>
 
                     {productData.images.length > 0 && (
-                        <div>
+                        <div className="-z-10">
                             <h3 className="text-sm font-medium mb-2">Image Preview:</h3>
                             <div className="flex space-x-2">
                                 {productData.images.map((img, index) => (
@@ -192,6 +203,7 @@ const ProductModal = () => {
                     <div className="flex justify-center mt-5">
                         <button
                             type="submit"
+                            disabled={isLoading}
                             className="bg-blue-500 text-white rounded w-auto"
                         >
                             Save Product
