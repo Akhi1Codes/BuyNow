@@ -27,6 +27,11 @@ function Navbar() {
             </div>
             {userData.isAuthenticated && toggle ? (
                 <ul className="bg-[#0d0e14] w-fit p-4  absolute right-0 top-14 cursor-pointer z-50">
+                    <Link to="/" onClick={() => setToggle(!toggle)}>
+                        <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
+                            Home
+                        </li>
+                    </Link>
                     <Link to="/me" onClick={() => setToggle(!toggle)}>
                         <li className="p-4 px-8 border-b-2  border-[#1a1b25]">
                             Profile
