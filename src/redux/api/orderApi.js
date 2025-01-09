@@ -40,6 +40,12 @@ export const orderApi = createApi({
                 credentials: "include",
             }),
         }),
+        getAllOrders: builder.query({
+            query: () => ({
+                url: "/api/v1/admin/orders",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
@@ -48,4 +54,5 @@ export const {
     useNewOrderMutation,
     useUserOrdersQuery,
     useUserOrderDetailsQuery,
+    useGetAllOrdersQuery,
 } = orderApi;

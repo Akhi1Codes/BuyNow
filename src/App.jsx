@@ -22,6 +22,7 @@ import OrderDetails, {
 import AdminRoot from "./pages/adminRoot.jsx";
 import Products from "./pages/admin/products.jsx";
 import Customers from "./pages/admin/customers.jsx";
+import AllOrders from "./pages/admin/orders.jsx";
 
 const router = createBrowserRouter([
     {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/customers",
                 element: <Customers/>,
+            },
+            {
+                path: "/admin/orders",
+                element: <AllOrders/>,
             },
         ]
     },

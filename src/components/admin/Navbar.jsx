@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {RiMenu3Line} from "react-icons/ri";
 import {useSidebar} from "../../context/SidebarContext.jsx";
 
@@ -8,13 +8,25 @@ function Navbar() {
     const [toggle, setToggle] = useState(false);
     const {toggleSidebar} = useSidebar();
     const userData = useSelector((state) => state.authSlice);
-
-
+    const location = useLocation();
+    const getTitle = (path) => {
+        switch (path) {
+            case '/admin':
+                return 'Products';
+            case '/admin/customers':
+                return 'Customers';
+            case '/admin/orders':
+                return 'Orders';
+            default:
+                return 'Welcome';
+        }
+    };
+    
     return (
         <div className="flex justify-between p-4 bg-[#0d0e14] sticky top-0">
             <div className="flex items-center justify-between gap-2">
                 <RiMenu3Line onClick={toggleSidebar} className="md:hidden"/>
-                <div className="text-xl md:text-2xl font-bold">Products</div>
+                <div className="text-xl md:text-2xl font-bold">{getTitle(location.pathname)}</div>
             </div>
             <div className="pl-2 flex justify-center items-center">
                 <img
