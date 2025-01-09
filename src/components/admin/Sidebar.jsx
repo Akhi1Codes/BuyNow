@@ -25,16 +25,22 @@ const Sidebar = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-4 justify-center items-center py-8">
-                        <Link to="/admin" onClick={isSmallScreen ? toggleSidebar : undefined}>
+                        <Link to="/admin">
                             <div className="flex items-center">
                                 <MdShoppingBag/>
                                 <p className="ml-2">Products</p>
                             </div>
                         </Link>
-                        <Link to="/admin/customers" onClick={isSmallScreen ? toggleSidebar : undefined}>
+                        <Link to="/admin/customers">
                             <div className="flex items-center">
                                 <FaUserAlt/>
                                 <p className="ml-2">Customers</p>
+                            </div>
+                        </Link>
+                        <Link to="/admin/orders">
+                            <div className="flex items-center">
+                                <FaUserAlt/>
+                                <p className="ml-2">Orders</p>
                             </div>
                         </Link>
                     </div>
