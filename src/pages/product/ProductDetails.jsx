@@ -64,6 +64,7 @@ function ProductDetails() {
                                                 className="h-4"
                                                 src={star}
                                                 key={`${index}-${rating}`}
+                                                alt="rating star"
                                             />
                                         ))}
 
